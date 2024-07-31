@@ -178,3 +178,10 @@ extension RegisterViewController: UITextFieldDelegate {
         return true
     }
 }
+    func presentPicker(_ imagePickerType: UIImagePickerController.SourceType) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = imagePickerType
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true)
+    }
