@@ -8,7 +8,34 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+//        scrollView.clipsToBounds = true
+        return scrollView
+    }()
+    
+    let logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "logo")
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    let emailTextField: UITextField = {
+        let textField = UITextField()
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
+        textField.returnKeyType = .continue
+        textField.layer.cornerRadius = 12
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.lightGray.cgColor
+        textField.placeholder = "Email adress..."
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
+        textField.leftViewMode = .always
+        textField.backgroundColor = .white
+        return textField
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Log In"
