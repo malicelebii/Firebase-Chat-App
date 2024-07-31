@@ -142,7 +142,7 @@ class RegisterViewController: UIViewController {
     }
     
     @objc func didTapProfilePictureImageView() {
-        print("Profile image tapped")
+        presentPhotoActionSheet()
     }
     
     @objc func registerButtonTapped() {
@@ -178,6 +178,24 @@ extension RegisterViewController: UITextFieldDelegate {
         return true
     }
 }
+
+extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func presentPhotoActionSheet() {
+        let actionSheet = UIAlertController(title: "Profile Picture", message: "How would you like to select a picture?", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let takePhotoAction = UIAlertAction(title: "Take photo", style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            self.presentPicker(.camera)
+        }
+        let choosePhotoAction = UIAlertAction(title: "Choose a photo", style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            self.presentPicker(.photoLibrary)
+        }
+        [takePhotoAction, choosePhotoAction, cancelAction].forEach { actionSheet.addAction($0) }
+        present(actionSheet, animated: true)
+    }
+    
     func presentPicker(_ imagePickerType: UIImagePickerController.SourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = imagePickerType
