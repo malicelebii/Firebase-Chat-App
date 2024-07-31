@@ -11,10 +11,17 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        title = "Log In"
+        view.backgroundColor = .white
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegisterButton))
     }
     
+    
+    @objc func didTapRegisterButton() {
+        let registerVC = RegisterViewController()
+        registerVC.title = "Create Account"
+        navigationController?.pushViewController(registerVC, animated: true)
+    }
 
     /*
     // MARK: - Navigation
