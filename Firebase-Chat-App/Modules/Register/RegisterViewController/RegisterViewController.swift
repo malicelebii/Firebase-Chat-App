@@ -203,3 +203,14 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
         imagePicker.allowsEditing = true
         present(imagePicker, animated: true)
     }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+        guard let image: UIImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
+        self.profilePictureImageView.image = image
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
