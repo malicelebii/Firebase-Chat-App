@@ -19,6 +19,9 @@ class RegisterViewController: UIViewController {
         imageView.image = UIImage(systemName: "person")
         imageView.tintColor = .gray
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderWidth = 2
+        imageView.layer.borderColor = UIColor.lightGray.cgColor
         return imageView
     }()
     
@@ -130,6 +133,7 @@ class RegisterViewController: UIViewController {
         scrollView.frame = view.bounds
         let size = scrollView.width / 3
         profilePictureImageView.frame = CGRect(x: (scrollView.width - size) / 2, y: 50, width: size, height: size)
+        profilePictureImageView.layer.cornerRadius = profilePictureImageView.width / 2
         firstNameTextField.frame = CGRect(x: 30, y: profilePictureImageView.bottom + 10, width: scrollView.width - 60, height: 52)
         lastNameTextField.frame = CGRect(x: 30, y: firstNameTextField.bottom + 10, width: scrollView.width - 60, height: 52)
         emailTextField.frame = CGRect(x: 30, y: lastNameTextField.bottom + 10, width: scrollView.width - 60, height: 52)
