@@ -132,8 +132,25 @@ class RegisterViewController: UIViewController {
         registerButton.frame = CGRect(x: 30, y: passwordTextField.bottom + 10, width: scrollView.width - 60, height: 52)
     }
     
+    @objc func didTapProfilePictureImageView() {
+        print("Profile image tapped")
     }
-    */
+    
+    @objc func registerButtonTapped() {
+        view.endEditing(true)
+        guard let email = emailTextField.text, let password = passwordTextField.text, let firstName = firstNameTextField.text, let lastName = lastNameTextField.text, !firstName.isEmpty, !lastName.isEmpty, !email.isEmpty, !password.isEmpty  else {
+            alertUserLoginError()
+            return
+        }
+    }
+    
+    func alertUserLoginError() {
+        let alert = UIAlertController(title: "Error", message: "Fill the all blanks", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+        present(alert, animated: true)
+    }
+}
 
 extension RegisterViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
