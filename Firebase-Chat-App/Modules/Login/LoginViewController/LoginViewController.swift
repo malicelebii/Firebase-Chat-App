@@ -40,7 +40,7 @@ class LoginViewController: UIViewController {
         let textField = UITextField()
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
-        textField.returnKeyType = .continue
+        textField.returnKeyType = .done
         textField.layer.cornerRadius = 12
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.lightGray.cgColor
