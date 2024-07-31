@@ -41,6 +41,14 @@ class LoginViewController: UIViewController {
         title = "Log In"
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegisterButton))
+        addSubViews()
+    }
+    
+    func addSubViews() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(logoImageView)
+        scrollView.addSubview(emailTextField)
+    }
     }
     
     
