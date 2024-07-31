@@ -100,6 +100,7 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        addSubViews()
     }
     
 
@@ -110,6 +111,29 @@ class RegisterViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+    
+    func addSubViews() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(profilePictureImageView)
+        scrollView.addSubview(firstNameTextField)
+        scrollView.addSubview(lastNameTextField)
+        scrollView.addSubview(emailTextField)
+        scrollView.addSubview(passwordTextField)
+        scrollView.addSubview(registerButton)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrollView.frame = view.bounds
+        let size = scrollView.width / 3
+        profilePictureImageView.frame = CGRect(x: (scrollView.width - size) / 2, y: 50, width: size, height: size)
+        firstNameTextField.frame = CGRect(x: 30, y: profilePictureImageView.bottom + 10, width: scrollView.width - 60, height: 52)
+        lastNameTextField.frame = CGRect(x: 30, y: firstNameTextField.bottom + 10, width: scrollView.width - 60, height: 52)
+        emailTextField.frame = CGRect(x: 30, y: lastNameTextField.bottom + 10, width: scrollView.width - 60, height: 52)
+        passwordTextField.frame = CGRect(x: 30, y: emailTextField.bottom + 10, width: scrollView.width - 60, height: 52)
+        registerButton.frame = CGRect(x: 30, y: passwordTextField.bottom + 10, width: scrollView.width - 60, height: 52)
+    }
+    
     }
     */
 
