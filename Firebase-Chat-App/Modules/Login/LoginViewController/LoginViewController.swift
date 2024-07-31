@@ -97,6 +97,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc func loginButtonTapped() {
+        view.endEditing(true)
         guard let email = emailTextField.text, let password = passwordTextField.text, !email.isEmpty, !password.isEmpty  else {
             alertUserLoginError()
             return
