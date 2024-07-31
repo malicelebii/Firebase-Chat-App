@@ -69,6 +69,7 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegisterButton))
         addSubViews()
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
     }
     
     func addSubViews() {
@@ -89,12 +90,26 @@ class LoginViewController: UIViewController {
         loginButton.frame = CGRect(x: 30, y: passwordTextField.bottom + 10, width: scrollView.width - 60, height: 52)
     }
     
+    @objc func loginButtonTapped() {
+        guard let email = emailTextField.text, let password = passwordTextField.text, !email.isEmpty, !password.isEmpty  else {
+            alertUserLoginError()
+            return
+        }
+    }
+    
+    func alertUserLoginError() {
+        let alert = UIAlertController(title: "Error", message: "Email or password is not correct", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+        present(alert, animated: true)
+    }
     
     @objc func didTapRegisterButton() {
         let registerVC = RegisterViewController()
         registerVC.title = "Create Account"
         navigationController?.pushViewController(registerVC, animated: true)
     }
+}
 
     /*
     // MARK: - Navigation
