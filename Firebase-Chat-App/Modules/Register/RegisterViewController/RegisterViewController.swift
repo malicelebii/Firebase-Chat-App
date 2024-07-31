@@ -98,9 +98,14 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .white
+        setupDelegates()
         addSubViews()
+        registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
+        profilePictureImageView.isUserInteractionEnabled = true
+        scrollView.isUserInteractionEnabled = true
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapProfilePictureImageView))
+        profilePictureImageView.addGestureRecognizer(gesture)
     }
     
     func setupDelegates() {
