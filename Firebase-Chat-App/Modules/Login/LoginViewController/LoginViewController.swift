@@ -64,6 +64,7 @@ class LoginViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(logoImageView)
         scrollView.addSubview(emailTextField)
+        scrollView.addSubview(passwordTextField)
     }
     
     override func viewDidLayoutSubviews() {
@@ -72,6 +73,7 @@ class LoginViewController: UIViewController {
         let size = scrollView.width / 3
         logoImageView.frame = CGRect(x: (scrollView.width - size) / 2, y: 50, width: size, height: size)
         emailTextField.frame = CGRect(x: 30, y: logoImageView.bottom + 10, width: scrollView.width - 60, height: 52)
+        passwordTextField.frame = CGRect(x: 30, y: emailTextField.bottom + 10, width: scrollView.width - 60, height: 52)
     }
     
     
