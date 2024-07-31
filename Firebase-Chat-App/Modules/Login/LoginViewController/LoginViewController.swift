@@ -36,6 +36,22 @@ class LoginViewController: UIViewController {
         return textField
     }()
     
+    let passwordTextField: UITextField = {
+        let textField = UITextField()
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
+        textField.returnKeyType = .continue
+        textField.layer.cornerRadius = 12
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.lightGray.cgColor
+        textField.placeholder = "Password..."
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
+        textField.leftViewMode = .always
+        textField.backgroundColor = .white
+        textField.isSecureTextEntry = true
+        return textField
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Log In"
