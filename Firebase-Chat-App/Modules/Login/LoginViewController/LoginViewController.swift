@@ -68,8 +68,14 @@ class LoginViewController: UIViewController {
         title = "Log In"
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegisterButton))
+        setupDelegates()
         addSubViews()
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+    }
+    
+    func setupDelegates() {
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
     }
     
     func addSubViews() {
@@ -111,14 +117,16 @@ class LoginViewController: UIViewController {
     }
 }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case emailTextField:
+            passwordTextField.becomeFirstResponder()
+        case passwordTextField:
+            loginButtonTapped()
+        default:
+            break
+        }
+        return true
     }
-    */
-
 }
