@@ -149,6 +149,7 @@
 		35BD7C012C5A0A7F00BE767F /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				35F438E72C5D73AA00366159 /* LoginViewModel */,
 				35BD7C022C5A0A8300BE767F /* LoginViewController */,
 			);
 			path = Login;
@@ -242,13 +243,19 @@
 			path = ProfileViewController;
 			sourceTree = "<group>";
 		};
+		35F438E72C5D73AA00366159 /* LoginViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LoginViewModel;
+			sourceTree = "<group>";
+		};
 		7F76929143184264631FFB7A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				C0589F20686E222A47F38A74 /* Pods-Firebase-Chat-App.debug.xcconfig */,
 				EF3C44BA6775B3A5D26A7B8B /* Pods-Firebase-Chat-App.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
