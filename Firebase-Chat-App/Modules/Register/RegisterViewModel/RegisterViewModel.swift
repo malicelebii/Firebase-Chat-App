@@ -6,7 +6,18 @@
 //
 
 import Foundation
+import FirebaseAuth
 
-final class RegisterViewModel {
-    
+protocol RegisterViewModelDelegate {
+    func register(withEmail: String, password: String)
+}
+
+final class RegisterViewModel: RegisterViewModelDelegate {
+    func register(withEmail: String, password: String) {
+        FirebaseAuth.Auth.auth().createUser(withEmail: withEmail, password: password) { authResult, error in
+            if let result = authResult, error == nil {
+                print(result.user)
+            }
+        }
+    }
 }
