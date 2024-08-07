@@ -6,9 +6,10 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 class RegisterViewController: UIViewController {
+    let registerViewModel = RegisterViewModel()
+    
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
@@ -100,6 +101,7 @@ class RegisterViewController: UIViewController {
         return button
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -153,11 +155,7 @@ class RegisterViewController: UIViewController {
             return
         }
         
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            if let result = authResult, error == nil {
-                print(result.user)
-            }
-        }
+        registerViewModel.register(withEmail: email, password: password)
     }
     
     func alertUserLoginError() {
