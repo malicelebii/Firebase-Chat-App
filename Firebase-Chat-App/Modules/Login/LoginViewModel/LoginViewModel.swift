@@ -6,7 +6,17 @@
 //
 
 import Foundation
+import FirebaseAuth
 
-final class LoginViewModel {
+protocol LoginViewModelDelegate {
+    func login(withEmail: String, password: String)
+}
+
+final class LoginViewModel: LoginViewModelDelegate {
+    func login(withEmail: String, password: String) {
+        FirebaseAuth.Auth.auth().signIn(withEmail: withEmail, password: password) { result, error in   
+        }
+    }
+    
     
 }
