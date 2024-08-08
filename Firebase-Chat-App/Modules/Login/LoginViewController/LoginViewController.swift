@@ -12,7 +12,7 @@ class LoginViewController: UIViewController {
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-//        scrollView.clipsToBounds = true
+        scrollView.clipsToBounds = true
         return scrollView
     }()
     
