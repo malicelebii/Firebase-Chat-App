@@ -105,6 +105,7 @@ class LoginViewController: UIViewController {
             return
         }
         loginViewModel.login(withEmail: email, password: password)
+        self.navigationController?.dismiss(animated: true)
     }
     
     func alertUserLoginError() {
