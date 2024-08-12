@@ -9,15 +9,16 @@ import Foundation
 import FirebaseAuth
 
 protocol RegisterViewModelDelegate {
-    func register(withEmail: String, password: String)
+    func register(withEmail: String, password: String, firstName: String, lastName: String)
 }
 
 final class RegisterViewModel: RegisterViewModelDelegate {
-    func register(withEmail: String, password: String) {
+    func register(withEmail: String, password: String, firstName: String, lastName: String) {
         FirebaseAuth.Auth.auth().createUser(withEmail: withEmail, password: password) { authResult, error in
-            if let result = authResult, error == nil {
-                print(result.user)
+            guard authResult != nil, error == nil else {
+                return
             }
+            DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: firstName, lastName: lastName, email: withEmail))
         }
     }
 }
