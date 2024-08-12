@@ -155,7 +155,17 @@ class RegisterViewController: UIViewController {
             return
         }
         
-        registerViewModel.register(withEmail: email, password: password)
+        DatabaseManager.shared.userExist(with: email) { [weak self] exist in
+            guard let self = self else { return }
+            guard !exist else {
+                alertUserLoginError(message: "Email was already taken")
+                return
+            }
+            self.registerViewModel.register(withEmail: email, password: password, firstName: firstName, lastName: lastName)
+            self.navigationController?.dismiss(animated: true)
+        }
+        
+        
     }
     
     func alertUserLoginError() {
