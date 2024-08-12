@@ -168,8 +168,8 @@ class RegisterViewController: UIViewController {
         
     }
     
-    func alertUserLoginError() {
-        let alert = UIAlertController(title: "Error", message: "Fill the all blanks", preferredStyle: .alert)
+    func alertUserLoginError(message: String = "Fill the all blanks") {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default)
         alert.addAction(okAction)
         present(alert, animated: true)
