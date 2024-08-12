@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ConversationsViewController: UIViewController {
 
@@ -16,16 +17,17 @@ class ConversationsViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        let isLoggedIn = UserDefaults.standard.bool(forKey: "logged_in")
-        if !isLoggedIn {
+        validateAuth()
+    }
+
+    func validateAuth() {
+        if FirebaseAuth.Auth.auth().currentUser == nil {
             let loginVC = LoginViewController()
             let navigationController = UINavigationController(rootViewController: loginVC)
             navigationController.modalPresentationStyle = .fullScreen
             present(navigationController, animated: true)
         }
-        
     }
-
+    
 }
 
