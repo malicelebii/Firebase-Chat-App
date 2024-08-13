@@ -25,6 +25,12 @@
 		35F438EC2C60A85C00366159 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F438EB2C60A85C00366159 /* RegisterViewModel.swift */; };
 		35F438EF2C69CD2A00366159 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F438EE2C69CD2A00366159 /* DatabaseManager.swift */; };
 		35F438F12C69CFAC00366159 /* ChatAppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F438F02C69CFAC00366159 /* ChatAppUser.swift */; };
+		35F438F52C6B14F800366159 /* FacebookAEM in Frameworks */ = {isa = PBXBuildFile; productRef = 35F438F42C6B14F800366159 /* FacebookAEM */; };
+		35F438F72C6B14F800366159 /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 35F438F62C6B14F800366159 /* FacebookBasics */; };
+		35F438F92C6B14F800366159 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 35F438F82C6B14F800366159 /* FacebookCore */; };
+		35F438FB2C6B14F800366159 /* FacebookGamingServices in Frameworks */ = {isa = PBXBuildFile; productRef = 35F438FA2C6B14F800366159 /* FacebookGamingServices */; };
+		35F438FD2C6B14F800366159 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 35F438FC2C6B14F800366159 /* FacebookLogin */; };
+		35F438FF2C6B14F800366159 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 35F438FE2C6B14F800366159 /* FacebookShare */; };
 		EB412EF796224AE93569AB8D /* Pods_Firebase_Chat_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B76EAAF520FD54A3FBC3E528 /* Pods_Firebase_Chat_App.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +55,7 @@
 		35F438EB2C60A85C00366159 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		35F438EE2C69CD2A00366159 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		35F438F02C69CFAC00366159 /* ChatAppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAppUser.swift; sourceTree = "<group>"; };
+		35F438F22C6A711D00366159 /* Firebase-Chat-App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Firebase-Chat-App.entitlements"; sourceTree = "<group>"; };
 		B76EAAF520FD54A3FBC3E528 /* Pods_Firebase_Chat_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Firebase_Chat_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0589F20686E222A47F38A74 /* Pods-Firebase-Chat-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Firebase-Chat-App.debug.xcconfig"; path = "Target Support Files/Pods-Firebase-Chat-App/Pods-Firebase-Chat-App.debug.xcconfig"; sourceTree = "<group>"; };
 		EF3C44BA6775B3A5D26A7B8B /* Pods-Firebase-Chat-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Firebase-Chat-App.release.xcconfig"; path = "Target Support Files/Pods-Firebase-Chat-App/Pods-Firebase-Chat-App.release.xcconfig"; sourceTree = "<group>"; };
@@ -59,7 +66,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35F438F72C6B14F800366159 /* FacebookBasics in Frameworks */,
+				35F438F52C6B14F800366159 /* FacebookAEM in Frameworks */,
+				35F438FD2C6B14F800366159 /* FacebookLogin in Frameworks */,
 				EB412EF796224AE93569AB8D /* Pods_Firebase_Chat_App.framework in Frameworks */,
+				35F438FB2C6B14F800366159 /* FacebookGamingServices in Frameworks */,
+				35F438F92C6B14F800366159 /* FacebookCore in Frameworks */,
+				35F438FF2C6B14F800366159 /* FacebookShare in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +100,7 @@
 		35BD7BE62C5A05B300BE767F /* Firebase-Chat-App */ = {
 			isa = PBXGroup;
 			children = (
+				35F438F22C6A711D00366159 /* Firebase-Chat-App.entitlements */,
 				35F438ED2C69CD1200366159 /* Managers */,
 				35BD7BFD2C5A083600BE767F /* Modules */,
 				35BD7BFC2C5A082800BE767F /* Resources */,
@@ -313,6 +327,14 @@
 			dependencies = (
 			);
 			name = "Firebase-Chat-App";
+			packageProductDependencies = (
+				35F438F42C6B14F800366159 /* FacebookAEM */,
+				35F438F62C6B14F800366159 /* FacebookBasics */,
+				35F438F82C6B14F800366159 /* FacebookCore */,
+				35F438FA2C6B14F800366159 /* FacebookGamingServices */,
+				35F438FC2C6B14F800366159 /* FacebookLogin */,
+				35F438FE2C6B14F800366159 /* FacebookShare */,
+			);
 			productName = "Firebase-Chat-App";
 			productReference = 35BD7BE42C5A05B300BE767F /* Firebase-Chat-App.app */;
 			productType = "com.apple.product-type.application";
@@ -341,6 +363,9 @@
 				Base,
 			);
 			mainGroup = 35BD7BDB2C5A05B300BE767F;
+			packageReferences = (
+				35F438F32C6B14F800366159 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+			);
 			productRefGroup = 35BD7BE52C5A05B300BE767F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -575,6 +600,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Firebase-Chat-App/Firebase-Chat-App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RP5XZC93SV;
@@ -608,6 +634,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Firebase-Chat-App/Firebase-Chat-App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RP5XZC93SV;
@@ -657,6 +684,50 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		35F438F32C6B14F800366159 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		35F438F42C6B14F800366159 /* FacebookAEM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35F438F32C6B14F800366159 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookAEM;
+		};
+		35F438F62C6B14F800366159 /* FacebookBasics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35F438F32C6B14F800366159 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookBasics;
+		};
+		35F438F82C6B14F800366159 /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35F438F32C6B14F800366159 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
+		};
+		35F438FA2C6B14F800366159 /* FacebookGamingServices */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35F438F32C6B14F800366159 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookGamingServices;
+		};
+		35F438FC2C6B14F800366159 /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35F438F32C6B14F800366159 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
+		};
+		35F438FE2C6B14F800366159 /* FacebookShare */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35F438F32C6B14F800366159 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookShare;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 35BD7BDC2C5A05B300BE767F /* Project object */;
 }
