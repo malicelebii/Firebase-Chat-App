@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ProfileViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
@@ -31,5 +32,21 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         cell.textLabel?.text = data[indexPath.row]
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let alertController = UIAlertController(title: "Log out", message: "Are you sure to log out ?", preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Log out", style: .destructive, handler: { _ in
+            do {
+                try FirebaseAuth.Auth.auth().signOut()
+                let loginVC = LoginViewController()
+                let navigationController = UINavigationController(rootViewController: loginVC)
+                navigationController.modalPresentationStyle = .fullScreen
+                self.present(navigationController, animated: true)
+            } catch {
+                print("Failed to log out")
+            }
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(alertController, animated: true)
     }
 }
