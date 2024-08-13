@@ -7,6 +7,9 @@
 
 import Foundation
 import FirebaseAuth
+import FBSDKLoginKit
+
+
 
 protocol LoginViewModelDelegate {
     func login(withEmail: String, password: String)
@@ -21,7 +24,9 @@ final class LoginViewModel: LoginViewModelDelegate {
     }
     
     func login(withEmail: String, password: String) {
-        FirebaseAuth.Auth.auth().signIn(withEmail: withEmail, password: password) { result, error in   
+        FirebaseAuth.Auth.auth().signIn(withEmail: withEmail, password: password) { [weak self] result, error in
+            guard let self = self else { return }
+            self.view?.didLogin()
         }
     }
     
