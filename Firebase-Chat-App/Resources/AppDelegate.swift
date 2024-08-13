@@ -9,6 +9,7 @@ import UIKit
 import FBSDKCoreKit
 import FirebaseCore
 import FacebookCore
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,7 +22,12 @@ func application(
         application,
         didFinishLaunchingWithOptions: launchOptions
     )
+    guard let clientID = FirebaseApp.app()?.options.clientID else { return false }
 
+    // Create Google Sign In configuration object.
+    let config = GIDConfiguration(clientID: clientID)
+    GIDSignIn.sharedInstance.configuration = config
+    
     return true
 }
       
@@ -36,6 +42,7 @@ func application(
         sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
         annotation: options[UIApplication.OpenURLOptionsKey.annotation]
     )
+    return GIDSignIn.sharedInstance.handle(url)
 }
 }
 
