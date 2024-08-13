@@ -17,6 +17,7 @@ protocol LoginViewModelDelegate {
 }
 
 final class LoginViewModel: LoginViewModelDelegate {
+    weak var view: LoginViewDelegate?
     var databaseManager: DatabaseManagerDelegate
     
     init(databaseManager: DatabaseManagerDelegate = DatabaseManager.shared) {

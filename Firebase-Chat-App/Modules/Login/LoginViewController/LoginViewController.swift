@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol LoginViewDelegate: AnyObject {
+    func didLogin()
+}
+
 class LoginViewController: UIViewController {
     let loginViewModel = LoginViewModel()
     
@@ -67,6 +71,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loginViewModel.view = self
         title = "Log In"
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegisterButton))
@@ -105,7 +110,6 @@ class LoginViewController: UIViewController {
             return
         }
         loginViewModel.login(withEmail: email, password: password)
-        self.navigationController?.dismiss(animated: true)
     }
     
     func alertUserLoginError() {
@@ -133,5 +137,11 @@ extension LoginViewController: UITextFieldDelegate {
             break
         }
         return true
+    }
+}
+
+extension LoginViewController: LoginViewDelegate {
+    func didLogin() {
+        self.navigationController?.dismiss(animated: true)
     }
 }
