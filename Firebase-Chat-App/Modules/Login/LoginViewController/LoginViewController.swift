@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+import FirebaseAuth
 
 protocol LoginViewDelegate: AnyObject {
     func didLogin()
@@ -69,6 +71,12 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    let loginButtonWithFB: FBLoginButton = {
+        let button = FBLoginButton()
+        button.permissions = ["public_profile", "email"]
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loginViewModel.view = self
@@ -83,6 +91,7 @@ class LoginViewController: UIViewController {
     func setupDelegates() {
         emailTextField.delegate = self
         passwordTextField.delegate = self
+        loginButtonWithFB.delegate = self
     }
     
     func addSubViews() {
@@ -91,6 +100,7 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(emailTextField)
         scrollView.addSubview(passwordTextField)
         scrollView.addSubview(loginButton)
+        scrollView.addSubview(loginButtonWithFB)
     }
     
     override func viewDidLayoutSubviews() {
@@ -101,6 +111,7 @@ class LoginViewController: UIViewController {
         emailTextField.frame = CGRect(x: 30, y: logoImageView.bottom + 10, width: scrollView.width - 60, height: 52)
         passwordTextField.frame = CGRect(x: 30, y: emailTextField.bottom + 10, width: scrollView.width - 60, height: 52)
         loginButton.frame = CGRect(x: 30, y: passwordTextField.bottom + 10, width: scrollView.width - 60, height: 52)
+        loginButtonWithFB.center = view.center
     }
     
     @objc func loginButtonTapped() {
@@ -137,6 +148,20 @@ extension LoginViewController: UITextFieldDelegate {
             break
         }
         return true
+    }
+}
+
+extension LoginViewController: LoginButtonDelegate {
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginKit.FBLoginButton) {
+        
+    }
+    
+    func loginButton(_ loginButton: FBSDKLoginKit.FBLoginButton, didCompleteWith result: FBSDKLoginKit.LoginManagerLoginResult?, error: (Error)?) {
+        guard let token = result?.token?.tokenString else {
+            print("User failed to log in with fb")
+            return
+        }      
+        loginViewModel.loginWithFB(token: token)
     }
 }
 
