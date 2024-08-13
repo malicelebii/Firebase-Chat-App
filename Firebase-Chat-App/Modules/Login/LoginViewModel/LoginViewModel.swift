@@ -8,12 +8,14 @@
 import Foundation
 import FirebaseAuth
 import FBSDKLoginKit
+import GoogleSignIn
 
 
 
 protocol LoginViewModelDelegate {
     func login(withEmail: String, password: String)
     func loginWithFB(token: String)
+    func loginWithGoogle(withRepresenting: UIViewController)
 }
 
 final class LoginViewModel: LoginViewModelDelegate {
@@ -58,5 +60,34 @@ final class LoginViewModel: LoginViewModelDelegate {
                 print("Successfully logged in ")
             }
         })
+    }
+    
+    func loginWithGoogle(withRepresenting: UIViewController) {
+        GIDSignIn.sharedInstance.signIn(withPresenting: withRepresenting) { [unowned self] result, error in
+            guard let user = result?.user,
+               let idToken = user.idToken?.tokenString
+             else {
+                return
+             }
+            guard let email = user.profile?.email,
+                    let firstName = user.profile?.givenName
+                   else {
+                print("Failed to fetch email, firstName, lastName")
+                return
+            }
+            let lastName = user.profile?.familyName ?? ""
+            
+            self.databaseManager.userExist(with: email) { exist in
+                if !exist {
+                    self.databaseManager.insertUser(with: ChatAppUser(firstName: firstName, lastName: lastName, email: email))
+                }
+            }
+             let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                            accessToken: user.accessToken.tokenString)
+            Auth.auth().signIn(with: credential) { [weak self] result, error in
+                guard let self = self else { return }
+                self.view?.didLogin()
+            }
+        }
     }
 }
