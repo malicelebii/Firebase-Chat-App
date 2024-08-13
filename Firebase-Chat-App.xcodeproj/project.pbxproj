@@ -20,7 +20,6 @@
 		35BD7C152C5A0B6C00BE767F /* NewConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD7C142C5A0B6C00BE767F /* NewConversationsViewController.swift */; };
 		35BD7C192C5A0B8600BE767F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD7C182C5A0B8600BE767F /* ProfileViewController.swift */; };
 		35BD7C1B2C5A121800BE767F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD7C1A2C5A121800BE767F /* Extensions.swift */; };
-		35F438E62C5B650200366159 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35F438E52C5B650200366159 /* GoogleService-Info.plist */; };
 		35F438E92C60A7B400366159 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F438E82C60A7B400366159 /* LoginViewModel.swift */; };
 		35F438EC2C60A85C00366159 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F438EB2C60A85C00366159 /* RegisterViewModel.swift */; };
 		35F438EF2C69CD2A00366159 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F438EE2C69CD2A00366159 /* DatabaseManager.swift */; };
@@ -31,6 +30,7 @@
 		35F438FB2C6B14F800366159 /* FacebookGamingServices in Frameworks */ = {isa = PBXBuildFile; productRef = 35F438FA2C6B14F800366159 /* FacebookGamingServices */; };
 		35F438FD2C6B14F800366159 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 35F438FC2C6B14F800366159 /* FacebookLogin */; };
 		35F438FF2C6B14F800366159 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 35F438FE2C6B14F800366159 /* FacebookShare */; };
+		35F439052C6B3C6C00366159 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35F439042C6B3C6C00366159 /* GoogleService-Info.plist */; };
 		EB412EF796224AE93569AB8D /* Pods_Firebase_Chat_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B76EAAF520FD54A3FBC3E528 /* Pods_Firebase_Chat_App.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,12 +50,12 @@
 		35BD7C142C5A0B6C00BE767F /* NewConversationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationsViewController.swift; sourceTree = "<group>"; };
 		35BD7C182C5A0B8600BE767F /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		35BD7C1A2C5A121800BE767F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		35F438E52C5B650200366159 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		35F438E82C60A7B400366159 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		35F438EB2C60A85C00366159 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		35F438EE2C69CD2A00366159 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		35F438F02C69CFAC00366159 /* ChatAppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAppUser.swift; sourceTree = "<group>"; };
 		35F438F22C6A711D00366159 /* Firebase-Chat-App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Firebase-Chat-App.entitlements"; sourceTree = "<group>"; };
+		35F439042C6B3C6C00366159 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B76EAAF520FD54A3FBC3E528 /* Pods_Firebase_Chat_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Firebase_Chat_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0589F20686E222A47F38A74 /* Pods-Firebase-Chat-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Firebase-Chat-App.debug.xcconfig"; path = "Target Support Files/Pods-Firebase-Chat-App/Pods-Firebase-Chat-App.debug.xcconfig"; sourceTree = "<group>"; };
 		EF3C44BA6775B3A5D26A7B8B /* Pods-Firebase-Chat-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Firebase-Chat-App.release.xcconfig"; path = "Target Support Files/Pods-Firebase-Chat-App/Pods-Firebase-Chat-App.release.xcconfig"; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 				35BD7BF02C5A05B500BE767F /* Assets.xcassets */,
 				35BD7BF22C5A05B500BE767F /* LaunchScreen.storyboard */,
 				35BD7BF52C5A05B500BE767F /* Info.plist */,
-				35F438E52C5B650200366159 /* GoogleService-Info.plist */,
+				35F439042C6B3C6C00366159 /* GoogleService-Info.plist */,
 			);
 			path = "Firebase-Chat-App";
 			sourceTree = "<group>";
@@ -381,7 +381,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35BD7BF42C5A05B500BE767F /* LaunchScreen.storyboard in Resources */,
-				35F438E62C5B650200366159 /* GoogleService-Info.plist in Resources */,
+				35F439052C6B3C6C00366159 /* GoogleService-Info.plist in Resources */,
 				35BD7BF12C5A05B500BE767F /* Assets.xcassets in Resources */,
 				35BD7BEF2C5A05B300BE767F /* Main.storyboard in Resources */,
 			);

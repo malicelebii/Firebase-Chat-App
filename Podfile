@@ -10,6 +10,8 @@ pod 'FirebaseAuth'
 pod 'FirebaseDatabase'
 pod 'FBSDKLoginKit'
 pod 'FBSDKCoreKit'
+pod 'GoogleSignIn'
+pod 'GoogleSignInSDK'
 
     
   # Pods for Firebase-Chat-App
