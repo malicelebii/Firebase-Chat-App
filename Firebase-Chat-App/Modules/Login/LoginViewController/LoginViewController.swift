@@ -8,6 +8,9 @@
 import UIKit
 import FBSDKLoginKit
 import FirebaseAuth
+import GoogleSignIn
+
+
 
 protocol LoginViewDelegate: AnyObject {
     func didLogin()
@@ -77,6 +80,11 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    let loginButtonWithGoogle: GIDSignInButton = {
+        let button = GIDSignInButton()
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loginViewModel.view = self
@@ -86,6 +94,11 @@ class LoginViewController: UIViewController {
         setupDelegates()
         addSubViews()
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        loginButtonWithGoogle.addTarget(self, action: #selector(signInWithGoogle), for: .touchUpInside)
+    }
+    
+    @objc func signInWithGoogle() {
+        loginViewModel.loginWithGoogle(withRepresenting: self)
     }
     
     func setupDelegates() {
@@ -101,6 +114,7 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(passwordTextField)
         scrollView.addSubview(loginButton)
         scrollView.addSubview(loginButtonWithFB)
+        scrollView.addSubview(loginButtonWithGoogle)
     }
     
     override func viewDidLayoutSubviews() {
@@ -111,7 +125,8 @@ class LoginViewController: UIViewController {
         emailTextField.frame = CGRect(x: 30, y: logoImageView.bottom + 10, width: scrollView.width - 60, height: 52)
         passwordTextField.frame = CGRect(x: 30, y: emailTextField.bottom + 10, width: scrollView.width - 60, height: 52)
         loginButton.frame = CGRect(x: 30, y: passwordTextField.bottom + 10, width: scrollView.width - 60, height: 52)
-        loginButtonWithFB.center = view.center
+        loginButtonWithFB.frame = CGRect(x: 30, y: loginButton.bottom + 10, width: scrollView.width - 60, height: 52)
+        loginButtonWithGoogle.frame = CGRect(x: 30, y: loginButtonWithFB.bottom + 10, width: scrollView.width - 60, height: 52)
     }
     
     @objc func loginButtonTapped() {
