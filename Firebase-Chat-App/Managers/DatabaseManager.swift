@@ -8,7 +8,12 @@
 import Foundation
 import FirebaseDatabase
 
-final class DatabaseManager {
+protocol DatabaseManagerDelegate {
+    func userExist(with email: String, completion: @escaping ((Bool) -> Void))
+    func insertUser(with user: ChatAppUser)
+}
+
+final class DatabaseManager: DatabaseManagerDelegate {
     static let shared = DatabaseManager()
     let database = Database.database().reference()
     
