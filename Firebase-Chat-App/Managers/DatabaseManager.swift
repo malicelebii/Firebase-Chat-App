@@ -10,7 +10,7 @@ import FirebaseDatabase
 
 protocol DatabaseManagerDelegate {
     func userExist(with email: String, completion: @escaping ((Bool) -> Void))
-    func insertUser(with user: ChatAppUser)
+    func insertUser(with user: ChatAppUser, completion: @escaping (Bool) -> Void)
 }
 
 final class DatabaseManager: DatabaseManagerDelegate {
@@ -29,10 +29,16 @@ final class DatabaseManager: DatabaseManagerDelegate {
         }
     }
     
-    func insertUser(with user: ChatAppUser) {
+    func insertUser(with user: ChatAppUser, completion: @escaping (Bool) -> Void) {
         database.child(user.safeEmail).setValue([
             "first_name": user.firstName,
             "last_name": user.lastName
-        ])
+        ]) { error, _ in
+            guard error == nil else {
+                completion(false)
+                return
+            }
+            completion(true)
+        }
     }
 }
