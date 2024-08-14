@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseAuth
+import JGProgressHUD
 
 protocol RegisterViewModelDelegate {
     func register(withEmail: String, password: String, firstName: String, lastName: String, image: UIImage?, view: UIView)
@@ -15,6 +16,9 @@ protocol RegisterViewModelDelegate {
 final class RegisterViewModel: RegisterViewModelDelegate {
     func register(withEmail: String, password: String, firstName: String, lastName: String) {
         FirebaseAuth.Auth.auth().createUser(withEmail: withEmail, password: password) { authResult, error in
+
+    let spinner = JGProgressHUD(style: .dark)
+    
     
     func register(withEmail: String, password: String, firstName: String, lastName: String, image: UIImage?, view: UIView) {
         spinner.show(in: view)
