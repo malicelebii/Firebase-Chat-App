@@ -99,7 +99,24 @@ final class LoginViewModel: LoginViewModelDelegate {
             
             self.databaseManager.userExist(with: email) { exist in
                 if !exist {
-                    self.databaseManager.insertUser(with: ChatAppUser(firstName: firstName, lastName: lastName, email: email))
+                    let chatUser = ChatAppUser(firstName: firstName, lastName: lastName, email: email)
+                    self.databaseManager.insertUser(with: chatUser) { success in
+                        if success {
+                            //upload image
+                            URLSession.shared.dataTask(with: URLRequest(url: pictureURL)) { data, response, error in
+                                guard let data = data else { return }
+                                let fileName = chatUser.profilePictureFileName
+                                self.storageManager.uploadProfilePicture(with: data, fileName: fileName) { result in
+                                    switch result {
+                                    case .success(let downloadUrl):
+                                        print(downloadUrl)
+                                    case .failure(let error):
+                                        print(error)
+                                    }
+                                }
+                            }.resume()
+                        }
+                    }
                 }
             }
              let credential = GoogleAuthProvider.credential(withIDToken: idToken,
