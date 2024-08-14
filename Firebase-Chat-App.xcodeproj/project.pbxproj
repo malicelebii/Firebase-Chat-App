@@ -35,6 +35,8 @@
 		35F4390C2C6B8B0700366159 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4390B2C6B8B0700366159 /* ChatViewController.swift */; };
 		35F4390E2C6C67E400366159 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4390D2C6C67E400366159 /* Message.swift */; };
 		35F439112C6C6FA300366159 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F439102C6C6FA300366159 /* ChatViewModel.swift */; };
+		35F439132C6C77F900366159 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F439122C6C77F900366159 /* StorageManager.swift */; };
+		35F439162C6C79D900366159 /* StorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F439152C6C79D900366159 /* StorageError.swift */; };
 		EB412EF796224AE93569AB8D /* Pods_Firebase_Chat_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B76EAAF520FD54A3FBC3E528 /* Pods_Firebase_Chat_App.framework */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +66,8 @@
 		35F4390B2C6B8B0700366159 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		35F4390D2C6C67E400366159 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		35F439102C6C6FA300366159 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		35F439122C6C77F900366159 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		35F439152C6C79D900366159 /* StorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageError.swift; sourceTree = "<group>"; };
 		B76EAAF520FD54A3FBC3E528 /* Pods_Firebase_Chat_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Firebase_Chat_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0589F20686E222A47F38A74 /* Pods-Firebase-Chat-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Firebase-Chat-App.debug.xcconfig"; path = "Target Support Files/Pods-Firebase-Chat-App/Pods-Firebase-Chat-App.debug.xcconfig"; sourceTree = "<group>"; };
 		EF3C44BA6775B3A5D26A7B8B /* Pods-Firebase-Chat-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Firebase-Chat-App.release.xcconfig"; path = "Target Support Files/Pods-Firebase-Chat-App/Pods-Firebase-Chat-App.release.xcconfig"; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 		35BD7BE62C5A05B300BE767F /* Firebase-Chat-App */ = {
 			isa = PBXGroup;
 			children = (
+				35F439142C6C79CA00366159 /* Enums */,
 				35F438F22C6A711D00366159 /* Firebase-Chat-App.entitlements */,
 				35F438ED2C69CD1200366159 /* Managers */,
 				35BD7BFD2C5A083600BE767F /* Modules */,
@@ -299,6 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				35F438EE2C69CD2A00366159 /* DatabaseManager.swift */,
+				35F439122C6C77F900366159 /* StorageManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -334,6 +340,14 @@
 				35F439102C6C6FA300366159 /* ChatViewModel.swift */,
 			);
 			path = ChatViewModel;
+			sourceTree = "<group>";
+		};
+		35F439142C6C79CA00366159 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				35F439152C6C79D900366159 /* StorageError.swift */,
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 		7F76929143184264631FFB7A /* Pods */ = {
@@ -489,6 +503,7 @@
 				35BD7BEC2C5A05B300BE767F /* ConversationsViewController.swift in Sources */,
 				35BD7C112C5A0AFE00BE767F /* VideoPlayerViewController.swift in Sources */,
 				35F439082C6B8A0A00366159 /* ConversationsViewModel.swift in Sources */,
+				35F439132C6C77F900366159 /* StorageManager.swift in Sources */,
 				35BD7BE82C5A05B300BE767F /* AppDelegate.swift in Sources */,
 				35BD7C1B2C5A121800BE767F /* Extensions.swift in Sources */,
 				35F438EC2C60A85C00366159 /* RegisterViewModel.swift in Sources */,
@@ -496,6 +511,7 @@
 				35F438F12C69CFAC00366159 /* ChatAppUser.swift in Sources */,
 				35BD7C192C5A0B8600BE767F /* ProfileViewController.swift in Sources */,
 				35BD7C152C5A0B6C00BE767F /* NewConversationViewController.swift in Sources */,
+				35F439162C6C79D900366159 /* StorageError.swift in Sources */,
 				35F439112C6C6FA300366159 /* ChatViewModel.swift in Sources */,
 				35BD7C0D2C5A0AE000BE767F /* PhotoViewerViewController.swift in Sources */,
 			);
