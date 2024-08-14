@@ -36,18 +36,35 @@ final class LoginViewModel: LoginViewModelDelegate {
     }
     
     func loginWithFB(token: String) {
-        let fbRequest = FBSDKLoginKit.GraphRequest(graphPath: "me", parameters: ["fields": "email, name"], tokenString: token, version: nil, httpMethod: .get)
+        let fbRequest = FBSDKLoginKit.GraphRequest(graphPath: "me", parameters: ["fields": "email, name, first_name, last_name, picture.type(large)"], tokenString: token, version: nil, httpMethod: .get)
         fbRequest.start(completion: { _, result, error in
             guard let result = result as? [String: Any], error == nil else { print("Failed to make fb graph request"); return }
           
             let credential = FacebookAuthProvider.credential(withAccessToken:  AccessToken.current!.tokenString)
             
-            guard let userName = result["name"] as? String, let email = result["email"] as? String else { print("Failed to get email and name from fb result"); return }
-            let nameComponents = userName.components(separatedBy: " ")
+            guard let firstName = result["first_name"] as? String,let lastName = result["last_name"] as? String, let email = result["email"] as? String, let picture = result["picture"] as? [String: Any], let data = picture["data"] as? [String: Any], let pictureURL = data["url"] as? String else { print("Failed to get email and name from fb result"); return }
             
             self.databaseManager.userExist(with: email) { exist in
                 if !exist {
-                    self.databaseManager.insertUser(with: ChatAppUser(firstName: nameComponents[0], lastName: nameComponents[1], email: email))
+                    let chatUser = ChatAppUser(firstName: firstName, lastName: lastName, email: email)
+                    self.databaseManager.insertUser(with: chatUser ) { success in
+                        if success {
+                            //upload image
+                            guard let url = URL(string: pictureURL) else { return }
+                            URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
+                                guard let data = data else { return }
+                                let fileName = chatUser.profilePictureFileName
+                                self.storageManager.uploadProfilePicture(with: data, fileName: fileName) { result in
+                                    switch result {
+                                    case .success(let downloadUrl):
+                                        print(downloadUrl)
+                                    case .failure(let error):
+                                        print(error)
+                                    }
+                                }
+                            }.resume()
+                        }
+                    }
                 }
             }
             
