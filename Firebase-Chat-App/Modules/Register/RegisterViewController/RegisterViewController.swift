@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol RegisterViewDelegate: AnyObject {
+    func didTapRegister()
+}
+
 class RegisterViewController: UIViewController {
     let registerViewModel = RegisterViewModel()
     
@@ -104,6 +108,7 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerViewModel.view = self
         view.backgroundColor = .white
         setupDelegates()
         addSubViews()
@@ -227,5 +232,11 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension RegisterViewController: RegisterViewDelegate {
+    func didTapRegister() {
+        self.navigationController?.dismiss(animated: true)
     }
 }
