@@ -12,6 +12,10 @@ pod 'FBSDKLoginKit'
 pod 'FBSDKCoreKit'
 pod 'GoogleSignIn'
 pod 'GoogleSignInSDK'
+pod 'MessageKit'
+pod 'JGProgressHUD'
+pod 'RealmSwift'
+pod 'SDWebImage'
 
     
   # Pods for Firebase-Chat-App
