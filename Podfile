@@ -8,6 +8,7 @@ target 'Firebase-Chat-App' do
 pod 'FirebaseCore'
 pod 'FirebaseAuth'
 pod 'FirebaseDatabase'
+pod 'FirebaseStorage'
 pod 'FBSDKLoginKit'
 pod 'FBSDKCoreKit'
 pod 'GoogleSignIn'
