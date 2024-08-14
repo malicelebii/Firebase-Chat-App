@@ -89,7 +89,8 @@ final class LoginViewModel: LoginViewModelDelegate {
                 return
              }
             guard let email = user.profile?.email,
-                    let firstName = user.profile?.givenName
+                    let firstName = user.profile?.givenName,
+                    let pictureURL = user.profile?.imageURL(withDimension: 200)
                    else {
                 print("Failed to fetch email, firstName, lastName")
                 return
