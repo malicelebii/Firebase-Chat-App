@@ -21,6 +21,7 @@ class NewConversationViewController: UIViewController {
         searchBar.delegate = self
         navigationController?.navigationBar.topItem?.titleView = searchBar
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(didTapCancel))
+        searchBar.becomeFirstResponder()
     }
     
     @objc func didTapCancel() {
