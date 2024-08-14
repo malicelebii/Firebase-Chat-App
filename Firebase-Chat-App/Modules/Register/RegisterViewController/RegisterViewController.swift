@@ -166,8 +166,7 @@ class RegisterViewController: UIViewController {
                 alertUserLoginError(message: "Email was already taken")
                 return
             }
-            self.registerViewModel.register(withEmail: email, password: password, firstName: firstName, lastName: lastName)
-            self.navigationController?.dismiss(animated: true)
+            self.registerViewModel.register(withEmail: email, password: password, firstName: firstName, lastName: lastName, image: profilePictureImageView.image, view: view)
         }
         
         
