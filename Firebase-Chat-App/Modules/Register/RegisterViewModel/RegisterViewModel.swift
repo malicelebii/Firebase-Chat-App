@@ -14,11 +14,17 @@ protocol RegisterViewModelDelegate {
 }
 
 final class RegisterViewModel: RegisterViewModelDelegate {
-    func register(withEmail: String, password: String, firstName: String, lastName: String) {
-        FirebaseAuth.Auth.auth().createUser(withEmail: withEmail, password: password) { authResult, error in
+    weak var view: RegisterViewDelegate?
+
+    let databaseManager: DatabaseManagerDelegate
+    let storageManager: StorageManagerDelegate
 
     let spinner = JGProgressHUD(style: .dark)
     
+    init(databaseManager: DatabaseManagerDelegate = DatabaseManager.shared, storageManager: StorageManagerDelegate = StorageManager.shared) {
+        self.databaseManager = databaseManager
+        self.storageManager = storageManager
+    }
     
     func register(withEmail: String, password: String, firstName: String, lastName: String, image: UIImage?, view: UIView) {
         spinner.show(in: view)
