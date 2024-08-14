@@ -9,8 +9,7 @@ import UIKit
 import FBSDKLoginKit
 import FirebaseAuth
 import GoogleSignIn
-
-
+import JGProgressHUD
 
 protocol LoginViewDelegate: AnyObject {
     func didLogin()
@@ -18,7 +17,8 @@ protocol LoginViewDelegate: AnyObject {
 
 class LoginViewController: UIViewController {
     let loginViewModel = LoginViewModel()
-    
+    let spinner = JGProgressHUD()
+
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
@@ -98,6 +98,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc func signInWithGoogle() {
+        self.spinner.show(in: view)
         loginViewModel.loginWithGoogle(withRepresenting: self)
     }
     
@@ -135,6 +136,7 @@ class LoginViewController: UIViewController {
             alertUserLoginError()
             return
         }
+        self.spinner.show(in: view)
         loginViewModel.login(withEmail: email, password: password)
     }
     
@@ -176,12 +178,14 @@ extension LoginViewController: LoginButtonDelegate {
             print("User failed to log in with fb")
             return
         }      
+        self.spinner.show(in: view)
         loginViewModel.loginWithFB(token: token)
     }
 }
 
 extension LoginViewController: LoginViewDelegate {
     func didLogin() {
+        self.spinner.dismiss()
         self.navigationController?.dismiss(animated: true)
     }
 }
