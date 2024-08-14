@@ -21,9 +21,11 @@ protocol LoginViewModelDelegate {
 final class LoginViewModel: LoginViewModelDelegate {
     weak var view: LoginViewDelegate?
     var databaseManager: DatabaseManagerDelegate
+    var storageManager: StorageManagerDelegate
     
-    init(databaseManager: DatabaseManagerDelegate = DatabaseManager.shared) {
+    init(databaseManager: DatabaseManagerDelegate = DatabaseManager.shared, storageManager: StorageManagerDelegate = StorageManager.shared) {
         self.databaseManager = databaseManager
+        self.storageManager = storageManager
     }
     
     func login(withEmail: String, password: String) {
