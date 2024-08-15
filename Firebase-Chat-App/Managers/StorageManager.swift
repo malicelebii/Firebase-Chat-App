@@ -10,6 +10,7 @@ import FirebaseStorage
 
 protocol StorageManagerDelegate {
     func uploadProfilePicture(with data: Data, fileName: String, completion: @escaping (Result<String, Error>) -> Void)
+    func downloadURL(for path: String, completion: @escaping (Result<URL, Error>) -> Void)
 }
 
 final class StorageManager: StorageManagerDelegate {
@@ -40,6 +41,14 @@ final class StorageManager: StorageManagerDelegate {
                 print("Donwload url: \(urlString)")
                 completion(.success(urlString))
             }
+        }
+    }
+    
+    func downloadURL(for path: String, completion: @escaping (Result<URL, Error>) -> Void) {
+        let reference = storage.child(path)
+        reference.downloadURL { url, error in
+            guard let url = url, error == nil else { completion(.failure(StorageError.failedToGetDownloadUrl)); return }
+            completion(.success(url))
         }
     }
 }
