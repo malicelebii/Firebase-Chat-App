@@ -17,9 +17,15 @@ final class DatabaseManager: DatabaseManagerDelegate {
     static let shared = DatabaseManager()
     let database = Database.database().reference()
     
+    static func safeEmail(email: String) -> String {
+        var safeEmail = email.replacingOccurrences(of: ".", with: "-")
+        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
+        return safeEmail
+    }
+    
     func userExist(with email: String, completion: @escaping ((Bool) -> Void)) {
         var safeEmail = email.replacingOccurrences(of: ".", with: "-")
-        safeEmail.replacingOccurrences(of: "@", with: "-")
+        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
         database.child(safeEmail).observeSingleEvent(of: .value) { snapshot in
             guard snapshot.value as? String != nil else {
                 completion(false)
