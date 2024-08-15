@@ -13,15 +13,33 @@ import GoogleSignIn
 class ProfileViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     let data = ["Log out"]
+    let profileViewModel = ProfileViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.dataSource = self
         tableView.delegate = self
-        
+        tableView.tableHeaderView = createTableHeader()
     }
     
+    func createTableHeader() -> UIView? {
+        guard let email = UserDefaults.standard.value(forKey: "email") as? String else { return nil }
+        let safeEmail = DatabaseManager.safeEmail(email: email)
+        let fileName = safeEmail + "_profile_picture.png"
+        let path = "images/" + fileName
+        var headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 300))
+        headerView.backgroundColor = .link
+        let imageView = UIImageView(frame: CGRect(x: (view.width - 150) / 2, y: 75, width: 150, height: 150))
+        headerView.addSubview(imageView)
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.layer.borderWidth = 3
+        imageView.layer.cornerRadius = imageView.width / 2
+        imageView.layer.masksToBounds = true
+        profileViewModel.setProfilePicture(for: path, imageView: imageView)
+        return headerView
+    }
 }
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
