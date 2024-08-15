@@ -29,6 +29,7 @@ final class LoginViewModel: LoginViewModelDelegate {
     }
     
     func login(withEmail: String, password: String) {
+        UserDefaults.standard.setValue(withEmail, forKey: "email")
         FirebaseAuth.Auth.auth().signIn(withEmail: withEmail, password: password) { [weak self] result, error in
             guard let self = self else { return }
             self.view?.didLogin()
@@ -43,6 +44,8 @@ final class LoginViewModel: LoginViewModelDelegate {
             let credential = FacebookAuthProvider.credential(withAccessToken:  AccessToken.current!.tokenString)
             
             guard let firstName = result["first_name"] as? String,let lastName = result["last_name"] as? String, let email = result["email"] as? String, let picture = result["picture"] as? [String: Any], let data = picture["data"] as? [String: Any], let pictureURL = data["url"] as? String else { print("Failed to get email and name from fb result"); return }
+    
+            UserDefaults.standard.setValue(email, forKey: "email")
             
             self.databaseManager.userExist(with: email) { exist in
                 if !exist {
@@ -96,7 +99,8 @@ final class LoginViewModel: LoginViewModelDelegate {
                 return
             }
             let lastName = user.profile?.familyName ?? ""
-            
+         
+            UserDefaults.standard.setValue(email, forKey: "email")
             self.databaseManager.userExist(with: email) { exist in
                 if !exist {
                     let chatUser = ChatAppUser(firstName: firstName, lastName: lastName, email: email)
