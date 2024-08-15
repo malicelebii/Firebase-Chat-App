@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		359C70A92C6E19CB000FC8EF /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359C70A82C6E19CB000FC8EF /* DatabaseError.swift */; };
 		35BD7BE82C5A05B300BE767F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD7BE72C5A05B300BE767F /* AppDelegate.swift */; };
 		35BD7BEA2C5A05B300BE767F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD7BE92C5A05B300BE767F /* SceneDelegate.swift */; };
 		35BD7BEC2C5A05B300BE767F /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD7BEB2C5A05B300BE767F /* ConversationsViewController.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		359C70A82C6E19CB000FC8EF /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
 		35BD7BE42C5A05B300BE767F /* Firebase-Chat-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Firebase-Chat-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		35BD7BE72C5A05B300BE767F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		35BD7BE92C5A05B300BE767F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				35F439152C6C79D900366159 /* StorageError.swift */,
+				359C70A82C6E19CB000FC8EF /* DatabaseError.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				35BD7C1B2C5A121800BE767F /* Extensions.swift in Sources */,
 				35F438EC2C60A85C00366159 /* RegisterViewModel.swift in Sources */,
 				35BD7BEA2C5A05B300BE767F /* SceneDelegate.swift in Sources */,
+				359C70A92C6E19CB000FC8EF /* DatabaseError.swift in Sources */,
 				35F438F12C69CFAC00366159 /* ChatAppUser.swift in Sources */,
 				35BD7C192C5A0B8600BE767F /* ProfileViewController.swift in Sources */,
 				35BD7C152C5A0B6C00BE767F /* NewConversationViewController.swift in Sources */,
