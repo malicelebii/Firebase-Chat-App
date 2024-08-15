@@ -11,6 +11,7 @@ import FirebaseDatabase
 protocol DatabaseManagerDelegate {
     func userExist(with email: String, completion: @escaping ((Bool) -> Void))
     func insertUser(with user: ChatAppUser, completion: @escaping (Bool) -> Void)
+    func getAllUsers(completion: @escaping (Result<[[String : String]], Error>) -> Void)
 }
 
 final class DatabaseManager: DatabaseManagerDelegate {
@@ -71,6 +72,16 @@ final class DatabaseManager: DatabaseManagerDelegate {
             }
             
         
+        }
+    }
+    
+    func getAllUsers(completion: @escaping (Result<[[String : String]], Error>) -> Void) {
+        database.child("users").observeSingleEvent(of: .value) { snapShot in
+            guard let value = snapShot.value as? [[String: String]] else {
+                completion(.failure(DatabaseError.failedToFetchUsers))
+                return
+            }
+            completion(.success(value))
         }
     }
 }
