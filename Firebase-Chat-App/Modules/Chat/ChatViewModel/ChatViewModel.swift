@@ -9,6 +9,7 @@ import Foundation
 
 protocol ChatViewModelDelegate {
     
+    func createMessageId() -> String?
 }
 
 final class ChatViewModel {
@@ -18,5 +19,17 @@ final class ChatViewModel {
     init() {
         messages.append(Message(sender: selfSender, messageId: "1", sentDate: Date(), kind: .text("Hello world message")))
         messages.append(Message(sender: selfSender, messageId: "1", sentDate: Date(), kind: .text("Hello world message 2")))
+    
+    func createMessageId() -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .long
+        dateFormatter.locale = .current
+        guard let currentEmail = UserDefaults.standard.value(forKey: "email") else { return nil}
+        let dateString = dateFormatter.string(from: Date())
+        let newIdentifier = "\(view?.otherUserEmail)_\(currentEmail)_\(dateString))"
+        print("create message id : \(newIdentifier)")
+        return newIdentifier
+    }
     }
 }
