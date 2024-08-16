@@ -17,4 +17,13 @@ final class ConversationsViewModel: ConversationsViewModelDelegate {
     func fetchConversations() {
         self.view?.didFetchConversations()
     }
+    
+    func createNewConversation(result: [String: String]) {
+        guard let name = result["name"], let email = result["email"] else { return }
+        let chatVC = ChatViewController(otherUserEmail: email)
+        chatVC.isNewConversation = true
+        chatVC.title = name
+        chatVC.navigationItem.largeTitleDisplayMode = .never
+        view?.didCreateNewConversation(chatVC: chatVC)
+    }
 }

@@ -11,6 +11,7 @@ import JGProgressHUD
 
 protocol ConversationsViewDelegate: AnyObject {
     func didFetchConversations()
+    func didCreateNewConversation(chatVC: UIViewController)
 }
 
 class ConversationsViewController: UIViewController {
@@ -73,6 +74,11 @@ class ConversationsViewController: UIViewController {
     
     @objc func didTapComposeButton() {
         let vc = NewConversationViewController()
+        vc.completion = {[weak self] result in
+            guard let self = self else { return }
+            print("\(result)")
+            self.conversationsViewModel.createNewConversation(result: result)
+        }
         let navVC = UINavigationController(rootViewController: vc)
         present(navVC, animated: true)
     }
@@ -92,7 +98,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let chatVC = ChatViewController()
+        let chatVC = ChatViewController(otherUserEmail: "asda@gmail.com")
         chatVC.title = "Mehmet Çelebi"
         chatVC.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(chatVC, animated: true)
@@ -102,5 +108,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
 extension ConversationsViewController: ConversationsViewDelegate {
     func didFetchConversations() {
         tableView.isHidden = false
+    }
+    
+    func didCreateNewConversation(chatVC: UIViewController) {
+        navigationController?.pushViewController(chatVC, animated: true)
     }
 }
