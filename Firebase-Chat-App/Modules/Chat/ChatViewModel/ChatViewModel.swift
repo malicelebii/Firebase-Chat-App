@@ -15,11 +15,12 @@ protocol ChatViewModelDelegate {
 final class ChatViewModel {
     let databaseManager: DatabaseManagerDelegate
     var messages = [Message]()
-    let selfSender = Sender(photoURL: "", senderId: "1", displayName: "joe smith")
-
-    init() {
-        messages.append(Message(sender: selfSender, messageId: "1", sentDate: Date(), kind: .text("Hello world message")))
-        messages.append(Message(sender: selfSender, messageId: "1", sentDate: Date(), kind: .text("Hello world message 2")))
+    
+    let selfSender: Sender? = {
+        guard let email = UserDefaults.standard.value(forKey: "email") as? String else { return nil }
+        
+        return Sender(photoURL: "", senderId: email, displayName: "Joe Smith")
+    }()
   
     init(databaseManager: DatabaseManagerDelegate = DatabaseManager.shared) {
         self.databaseManager = databaseManager
