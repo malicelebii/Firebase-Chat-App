@@ -15,6 +15,7 @@ protocol NewConversationViewDelegate: AnyObject {
 class NewConversationViewController: UIViewController {
     let newConversationViewModel = NewConversationViewModel()
     let spinner = JGProgressHUD(style: .dark)
+    var completion: (([String: String]) -> (Void))?
     
     let tableView: UITableView = {
         var tableView = UITableView()
@@ -77,6 +78,11 @@ extension NewConversationViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let targetUserData = newConversationViewModel.users[indexPath.row]
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            self.completion?(targetUserData)
+        }
     }
 }
 
