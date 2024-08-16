@@ -12,6 +12,10 @@ protocol DatabaseManagerDelegate {
     func userExist(with email: String, completion: @escaping ((Bool) -> Void))
     func insertUser(with user: ChatAppUser, completion: @escaping (Bool) -> Void)
     func getAllUsers(completion: @escaping (Result<[[String : String]], Error>) -> Void)
+    func createNewConversation(with otherUserEmail: String, firstMessage: Message, completion: @escaping (Bool) -> Void)
+    func getAllConversations(for email: String, completion: @escaping (Result<String, Error>) -> Void)
+    func getAllMessagesForConversation(with id: String, completion: @escaping (Result<String, Error>) -> Void)
+    func sendMessage(to conversation: String, message: Message, completion: @escaping (Bool) -> Void)
 }
 
 final class DatabaseManager: DatabaseManagerDelegate {
@@ -83,5 +87,29 @@ final class DatabaseManager: DatabaseManagerDelegate {
             }
             completion(.success(value))
         }
+    }
+}
+
+// MARK: - Sending messages / Conversations
+
+extension DatabaseManager {
+    /// Creates a new conversation with target user email and first message sent
+    func createNewConversation(with otherUserEmail: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
+        
+    }
+    
+    /// Fetches and returns all conversations for the user with passed in email
+    func getAllConversations(for email: String, completion: @escaping (Result<String, Error>) -> Void) {
+        
+    }
+    
+    /// Get all messages for a given conversation
+    func getAllMessagesForConversation(with id: String, completion: @escaping (Result<String, Error>) -> Void) {
+        
+    }
+    
+    /// Send a message with target conversation and message
+    func sendMessage(to conversation: String, message: Message, completion: @escaping (Bool) -> Void) {
+        
     }
 }
