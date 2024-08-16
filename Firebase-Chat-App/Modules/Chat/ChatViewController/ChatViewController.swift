@@ -8,11 +8,16 @@
 import UIKit
 import MessageKit
 
+protocol ChatViewDelegate: AnyObject {
+    var otherUserEmail: String { get}
+}
+
 class ChatViewController: MessagesViewController  {
     let chatViewModel = ChatViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        chatViewModel.view = self
         view.backgroundColor = .red
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
@@ -32,4 +37,8 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
         return chatViewModel.messages.count
     }    
+}
+
+extension ChatViewController: ChatViewDelegate {
+    
 }

@@ -8,12 +8,13 @@
 import Foundation
 
 protocol ChatViewModelDelegate {
-    
     func createMessageId() -> String?
+    func createNewConversation(with otherUserEmail: String, firstMessage: Message)
 }
 
-final class ChatViewModel {
+final class ChatViewModel: ChatViewModelDelegate {
     let databaseManager: DatabaseManagerDelegate
+    weak var view: ChatViewDelegate?
     var messages = [Message]()
     
     let selfSender: Sender? = {
@@ -37,5 +38,15 @@ final class ChatViewModel {
         print("create message id : \(newIdentifier)")
         return newIdentifier
     }
+    
+    func createNewConversation(with otherUserEmail: String, firstMessage: Message) {
+        databaseManager.createNewConversation(with: otherUserEmail, firstMessage: firstMessage) { result in
+            if result {
+                print("message sent")
+                print(firstMessage)
+            }else {
+                print("failed to send message")
+            }
+        }
     }
 }
