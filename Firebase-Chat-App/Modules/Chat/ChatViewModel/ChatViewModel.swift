@@ -13,12 +13,17 @@ protocol ChatViewModelDelegate {
 }
 
 final class ChatViewModel {
+    let databaseManager: DatabaseManagerDelegate
     var messages = [Message]()
     let selfSender = Sender(photoURL: "", senderId: "1", displayName: "joe smith")
 
     init() {
         messages.append(Message(sender: selfSender, messageId: "1", sentDate: Date(), kind: .text("Hello world message")))
         messages.append(Message(sender: selfSender, messageId: "1", sentDate: Date(), kind: .text("Hello world message 2")))
+  
+    init(databaseManager: DatabaseManagerDelegate = DatabaseManager.shared) {
+        self.databaseManager = databaseManager
+    }
     
     func createMessageId() -> String? {
         let dateFormatter = DateFormatter()
