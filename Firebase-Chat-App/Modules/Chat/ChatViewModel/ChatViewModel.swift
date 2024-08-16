@@ -35,6 +35,9 @@ final class ChatViewModel: ChatViewModelDelegate {
           }
     
     func createMessageId() -> String? {
+        guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String, let otherUserEmail = view?.otherUserEmail else { return nil}
+        let dateString = ChatViewModel.dateFormatter.string(from: Date())
+        let newIdentifier = "\(otherUserEmail)_\(DatabaseManager.safeEmail(email: currentEmail))_\(dateString))"
         print("create message id : \(newIdentifier)")
         return newIdentifier
     }
