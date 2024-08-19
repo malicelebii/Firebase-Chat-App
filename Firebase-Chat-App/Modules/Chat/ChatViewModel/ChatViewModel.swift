@@ -9,7 +9,7 @@ import Foundation
 
 protocol ChatViewModelDelegate {
     func createMessageId() -> String?
-    func createNewConversation(with otherUserEmail: String, firstMessage: Message)
+    func createNewConversation(with otherUserEmail: String, firstMessage: Message, name: String?)
 }
 
 final class ChatViewModel: ChatViewModelDelegate {
@@ -42,8 +42,8 @@ final class ChatViewModel: ChatViewModelDelegate {
         return newIdentifier
     }
     
-    func createNewConversation(with otherUserEmail: String, firstMessage: Message) {
-        databaseManager.createNewConversation(with: otherUserEmail, firstMessage: firstMessage) { result in
+    func createNewConversation(with otherUserEmail: String, firstMessage: Message, name: String?) {
+        databaseManager.createNewConversation(with: otherUserEmail, name: name ?? "User" ,firstMessage: firstMessage) { result in
             if result {
                 print("message sent")
                 print(firstMessage)
