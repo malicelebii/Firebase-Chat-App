@@ -8,15 +8,15 @@
 import Foundation
 
 protocol ConversationsViewModelDelegate {
-    func fetchConversations()
+    func createNewConversation(result: [String: String])
+    func getAllConversations()
 }
 
 final class ConversationsViewModel: ConversationsViewModelDelegate {
     weak var view: ConversationsViewDelegate?
     let databaseManager: DatabaseManagerDelegate?
+    var conversations = [Conversation]()
     
-    func fetchConversations() {
-        self.view?.didFetchConversations()
     init(databaseManager: DatabaseManagerDelegate = DatabaseManager.shared) {
         self.databaseManager = databaseManager
     }
@@ -28,5 +28,21 @@ final class ConversationsViewModel: ConversationsViewModelDelegate {
         chatVC.title = name
         chatVC.navigationItem.largeTitleDisplayMode = .never
         view?.didCreateNewConversation(chatVC: chatVC)
+    }
+    
+    func getAllConversations() {
+        guard let email = UserDefaults.standard.value(forKey: "email") as? String else { return }
+        let safeEmail = DatabaseManager.safeEmail(email: email)
+        databaseManager?.getAllConversations(for: safeEmail, completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let conversations):
+                guard !conversations.isEmpty else { return }
+                self.conversations = conversations
+                self.view?.didFetchConversations()
+            case .failure(let error):
+                print("failed to get conversations")
+            }
+        })
     }
 }
