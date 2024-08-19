@@ -10,6 +10,7 @@ import Foundation
 protocol ChatViewModelDelegate {
     func createMessageId() -> String?
     func createNewConversation(with otherUserEmail: String, firstMessage: Message, name: String?)
+    func getAllMessagesForConversation(with id: String)
 }
 
 final class ChatViewModel: ChatViewModelDelegate {
@@ -49,6 +50,19 @@ final class ChatViewModel: ChatViewModelDelegate {
                 print(firstMessage)
             }else {
                 print("failed to send message")
+            }
+        }
+    }
+    
+    func getAllMessagesForConversation(with id: String) {
+        databaseManager.getAllMessagesForConversation(with: id) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let messages):
+                self.messages = messages
+                self.view?.didFetchMessages()
+            case .failure(let error):
+                print(error)
             }
         }
     }
