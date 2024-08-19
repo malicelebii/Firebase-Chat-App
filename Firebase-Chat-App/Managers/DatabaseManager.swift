@@ -98,7 +98,8 @@ extension DatabaseManager {
     func createNewConversation(with otherUserEmail: String, name: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
         guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String else { return }
         let safeEmail = DatabaseManager.safeEmail(email: currentEmail)
-        database.child("\(safeEmail)").observeSingleEvent(of: .value) { snapShot in
+        database.child("\(safeEmail)").observeSingleEvent(of: .value) { [weak self] snapShot in
+            guard let self = self else { return }
             guard var userNode = snapShot.value as? [String: Any] else { completion(false); print("user not found"); return }
             
             let messageDate = firstMessage.sentDate
@@ -142,6 +143,30 @@ extension DatabaseManager {
                     
                 ]
             ]
+            
+            let recipientNewConversationData = [
+                "id": conversationId,
+                "other_user_email": safeEmail,
+                "name": "Self",
+                "latest_message": [
+                    "date": dateString,
+                    "message": message,
+                    "is_read": false,
+                    
+                ]
+            ]
+            
+            self.database.child("\(otherUserEmail)/conversations").observeSingleEvent(of: .value) {[weak self] snapShot in
+                
+                guard let self = self else { return }
+                if var conversations = snapShot.value as? [[String: Any]] {
+                    conversations.append(recipientNewConversationData)
+                    self.database.child("\(otherUserEmail)/conversations").setValue(conversations)
+                }else {
+                    self.database.child("\(otherUserEmail)/conversations").setValue(recipientNewConversationData)
+                }
+            }
+            
             
             if var conversations = userNode["conversations"] as? [[String: Any]] {
                 // conversation array exists for current user
