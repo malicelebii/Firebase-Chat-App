@@ -46,7 +46,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         // Send Message
         if isNewConversation {
             let message = Message(sender: selfSender, messageId: messageId, sentDate: Date(), kind: .text(text))
-            chatViewModel.createNewConversation(with: otherUserEmail, firstMessage: message)
+            chatViewModel.createNewConversation(with: otherUserEmail, firstMessage: message, name: self.title)
         }else {
             
         }
