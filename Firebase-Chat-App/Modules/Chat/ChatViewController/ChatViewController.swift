@@ -10,17 +10,23 @@ import MessageKit
 import InputBarAccessoryView
 
 protocol ChatViewDelegate: AnyObject {
+    func didFetchMessages()
     var otherUserEmail: String { get}
 }
 
 class ChatViewController: MessagesViewController  {
     let chatViewModel = ChatViewModel()
     var otherUserEmail: String
+    var conversationId: String?
     var isNewConversation = false
     
-    init(otherUserEmail: String) {
+    init(otherUserEmail: String, id: String?) {
+        self.conversationId = id
         self.otherUserEmail = otherUserEmail
         super.init(nibName: nil, bundle: nil)
+        if let conversationId = conversationId {
+            chatViewModel.getAllMessagesForConversation(with: conversationId)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -48,9 +54,8 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
             let message = Message(sender: selfSender, messageId: messageId, sentDate: Date(), kind: .text(text))
             chatViewModel.createNewConversation(with: otherUserEmail, firstMessage: message, name: self.title)
         }else {
-            
-        }
-        
+            guard let conversationId = conversationId, let name = self.title else { return }
+        }        
     }
 }
 
@@ -60,7 +65,6 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
             return sender
         }
         fatalError("Self sender is nil, email should be cached")
-        return Sender(photoURL: "", senderId: "12", displayName: "")
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
@@ -73,5 +77,11 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
 }
 
 extension ChatViewController: ChatViewDelegate {
-    
+    func didFetchMessages() {
+        DispatchQueue.main.async{ [weak self] in
+            guard let self = self else { return }
+            self.messagesCollectionView.reloadDataAndKeepOffset()
+            self.messagesCollectionView.scrollToLastItem()
+        }
+    }
 }
