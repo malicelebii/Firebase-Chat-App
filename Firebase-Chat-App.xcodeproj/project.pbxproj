@@ -22,6 +22,7 @@
 		35BD7C152C5A0B6C00BE767F /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD7C142C5A0B6C00BE767F /* NewConversationViewController.swift */; };
 		35BD7C192C5A0B8600BE767F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD7C182C5A0B8600BE767F /* ProfileViewController.swift */; };
 		35BD7C1B2C5A121800BE767F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD7C1A2C5A121800BE767F /* Extensions.swift */; };
+		35C6EF6E2C7321C200735D2A /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C6EF6D2C7321C200735D2A /* Conversation.swift */; };
 		35F438E92C60A7B400366159 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F438E82C60A7B400366159 /* LoginViewModel.swift */; };
 		35F438EC2C60A85C00366159 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F438EB2C60A85C00366159 /* RegisterViewModel.swift */; };
 		35F438EF2C69CD2A00366159 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F438EE2C69CD2A00366159 /* DatabaseManager.swift */; };
@@ -61,6 +62,7 @@
 		35BD7C142C5A0B6C00BE767F /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		35BD7C182C5A0B8600BE767F /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		35BD7C1A2C5A121800BE767F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		35C6EF6D2C7321C200735D2A /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		35F438E82C60A7B400366159 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		35F438EB2C60A85C00366159 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		35F438EE2C69CD2A00366159 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			children = (
 				35F438F02C69CFAC00366159 /* ChatAppUser.swift */,
 				35F4390D2C6C67E400366159 /* Message.swift */,
+				35C6EF6D2C7321C200735D2A /* Conversation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				35F439082C6B8A0A00366159 /* ConversationsViewModel.swift in Sources */,
 				35F439132C6C77F900366159 /* StorageManager.swift in Sources */,
 				35BD7BE82C5A05B300BE767F /* AppDelegate.swift in Sources */,
+				35C6EF6E2C7321C200735D2A /* Conversation.swift in Sources */,
 				35BD7C1B2C5A121800BE767F /* Extensions.swift in Sources */,
 				35F438EC2C60A85C00366159 /* RegisterViewModel.swift in Sources */,
 				359C70A72C6E172B000FC8EF /* NewConversationViewModel.swift in Sources */,
