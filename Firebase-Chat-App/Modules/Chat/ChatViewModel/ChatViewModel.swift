@@ -27,13 +27,13 @@ final class ChatViewModel: ChatViewModelDelegate {
     
     let selfSender: Sender? = {
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else { return nil }
-        
-        return Sender(photoURL: "", senderId: email, displayName: "Joe Smith")
+        let safeEmail = DatabaseManager.safeEmail(email: email)
+        return Sender(photoURL: "", senderId: safeEmail, displayName: "Me")
     }()
   
     init(databaseManager: DatabaseManagerDelegate = DatabaseManager.shared) {
         self.databaseManager = databaseManager
-          }
+    }
     
     func createMessageId() -> String? {
         guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String, let otherUserEmail = view?.otherUserEmail else { return nil}
