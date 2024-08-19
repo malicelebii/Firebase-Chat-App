@@ -9,4 +9,5 @@ import Foundation
 
 enum DatabaseError: Error {
     case failedToFetchUsers
+    case failedToFetchConversations
 }
