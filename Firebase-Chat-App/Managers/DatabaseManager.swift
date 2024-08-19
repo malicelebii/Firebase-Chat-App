@@ -12,11 +12,11 @@ protocol DatabaseManagerDelegate {
     func userExist(with email: String, completion: @escaping ((Bool) -> Void))
     func insertUser(with user: ChatAppUser, completion: @escaping (Bool) -> Void)
     func getAllUsers(completion: @escaping (Result<[[String : String]], Error>) -> Void)
-    func createNewConversation(with otherUserEmail: String, firstMessage: Message, completion: @escaping (Bool) -> Void)
-    func getAllConversations(for email: String, completion: @escaping (Result<String, Error>) -> Void)
+    func createNewConversation(with otherUserEmail: String, name: String, firstMessage: Message, completion: @escaping (Bool) -> Void)
+    func getAllConversations(for email: String, completion: @escaping (Result<[Conversation], Error>) -> Void)
     func getAllMessagesForConversation(with id: String, completion: @escaping (Result<String, Error>) -> Void)
     func sendMessage(to conversation: String, message: Message, completion: @escaping (Bool) -> Void)
-    func finishCreatingConversation(conversationID: String, firstMessage: Message, completion: @escaping (Bool) -> Void)
+    func finishCreatingConversation(name: String, conversationID: String, firstMessage: Message, completion: @escaping (Bool) -> Void)
 }
 
 final class DatabaseManager: DatabaseManagerDelegate {
