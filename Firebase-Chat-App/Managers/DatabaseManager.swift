@@ -222,8 +222,27 @@ extension DatabaseManager {
     }
     
     /// Fetches and returns all conversations for the user with passed in email
-    func getAllConversations(for email: String, completion: @escaping (Result<String, Error>) -> Void) {
-        
+    func getAllConversations(for email: String, completion: @escaping (Result<[Conversation], Error>) -> Void) {
+        database.child("\(email)/conversations").observe(.value) { snapShot in
+            guard let value = snapShot.value as? [[String: Any]] else {
+                completion(.failure(DatabaseError.failedToFetchConversations))
+                return
+            }
+            
+            let conversations: [Conversation] = value.compactMap { dict in
+                guard let conversationId = dict["id"] as? String,
+                      let name = dict["name"] as? String,
+                      let otherUserEmail = dict["other_user_email"] as? String,
+                      let latestMessage = dict["latest_message"] as? [String: Any],
+                      let date = latestMessage["date"] as? String,
+                      let message = latestMessage["message"] as? String,
+                      let isRead = latestMessage["is_read"] as? Bool else { return nil}
+
+                let latestMessageObject = LatestMessage(date: date, text: message, isRead: isRead)
+                return Conversation(id: conversationId, latestMessage: latestMessageObject, name: name, othetUserEmail: otherUserEmail)
+            }
+            completion(.success(conversations))
+        }
     }
     
     /// Get all messages for a given conversation
