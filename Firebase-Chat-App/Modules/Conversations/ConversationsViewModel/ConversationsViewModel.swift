@@ -13,9 +13,12 @@ protocol ConversationsViewModelDelegate {
 
 final class ConversationsViewModel: ConversationsViewModelDelegate {
     weak var view: ConversationsViewDelegate?
+    let databaseManager: DatabaseManagerDelegate?
     
     func fetchConversations() {
         self.view?.didFetchConversations()
+    init(databaseManager: DatabaseManagerDelegate = DatabaseManager.shared) {
+        self.databaseManager = databaseManager
     }
     
     func createNewConversation(result: [String: String]) {
