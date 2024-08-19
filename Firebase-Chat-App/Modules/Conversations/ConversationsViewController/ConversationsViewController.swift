@@ -22,7 +22,7 @@ class ConversationsViewController: UIViewController {
     let tableView: UITableView = {
         var tableView = UITableView()
         tableView.isHidden = true
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(ConversationsTableViewCell.self, forCellReuseIdentifier: ConversationsTableViewCell.identifier)
         return tableView
     }()
     
@@ -42,7 +42,7 @@ class ConversationsViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(didTapComposeButton))
         addSubviews()
         setupTableView()
-        conversationsViewModel.fetchConversations()
+        conversationsViewModel.getAllConversations()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -86,28 +86,39 @@ class ConversationsViewController: UIViewController {
 
 extension ConversationsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return conversationsViewModel.conversations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ConversationsTableViewCell.identifier, for: indexPath) as! ConversationsTableViewCell
         cell.accessoryType = .disclosureIndicator
-        cell.textLabel?.text = "Hello World"
+        let model = conversationsViewModel.conversations[indexPath.row]
+        cell.configure(with: model)
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let chatVC = ChatViewController(otherUserEmail: "asda@gmail.com")
+        let email = conversationsViewModel.conversations[indexPath.row].othetUserEmail
+        let chatVC = ChatViewController(otherUserEmail: email)
         chatVC.title = "Mehmet Çelebi"
         chatVC.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(chatVC, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
     }
 }
 
 extension ConversationsViewController: ConversationsViewDelegate {
     func didFetchConversations() {
         tableView.isHidden = false
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.tableView.reloadData()
+        }
     }
     
     func didCreateNewConversation(chatVC: UIViewController) {
