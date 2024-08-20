@@ -17,6 +17,7 @@ protocol DatabaseManagerDelegate {
     func getAllMessagesForConversation(with id: String, completion: @escaping (Result<[Message], Error>) -> Void)
     func sendMessage(to conversation: String, message: Message, completion: @escaping (Bool) -> Void)
     func finishCreatingConversation(name: String, conversationID: String, firstMessage: Message, completion: @escaping (Bool) -> Void)
+    func getDataFor(path: String, completion: @escaping (Result<Any, Error>) -> Void)
 }
 
 final class DatabaseManager: DatabaseManagerDelegate {
@@ -297,5 +298,12 @@ extension DatabaseManager {
     /// Send a message with target conversation and message
     func sendMessage(to conversation: String, message: Message, completion: @escaping (Bool) -> Void) {
         
+
+extension DatabaseManager {
+    func getDataFor(path: String, completion: @escaping (Result<Any, Error>) -> Void) {
+        self.database.child(path).observeSingleEvent(of: .value) { snapShot in
+            guard let value = snapShot.value else { completion(.failure(DatabaseError.failedToFetchData)); return }
+            completion(.success(value))
+        }
     }
 }
