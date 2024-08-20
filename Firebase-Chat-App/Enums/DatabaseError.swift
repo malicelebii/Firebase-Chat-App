@@ -11,4 +11,5 @@ enum DatabaseError: Error {
     case failedToFetchUsers
     case failedToFetchConversations
     case failedToFetchMessages
+    case failedToFetchData
 }
