@@ -44,10 +44,12 @@ final class ChatViewModel: ChatViewModelDelegate {
     }
     
     func createNewConversation(with otherUserEmail: String, firstMessage: Message, name: String?) {
-        databaseManager.createNewConversation(with: otherUserEmail, name: name ?? "User" ,firstMessage: firstMessage) { result in
+        databaseManager.createNewConversation(with: otherUserEmail, name: name ?? "User" ,firstMessage: firstMessage) { [weak self] result in
+            guard let self = self else { return }
             if result {
                 print("message sent")
                 print(firstMessage)
+                self.view?.didCreateConversation()
             }else {
                 print("failed to send message")
             }

@@ -10,6 +10,7 @@ import MessageKit
 import InputBarAccessoryView
 
 protocol ChatViewDelegate: AnyObject {
+    func didCreateConversation()
     func didFetchMessages()
     var otherUserEmail: String { get}
 }
@@ -83,5 +84,9 @@ extension ChatViewController: ChatViewDelegate {
             self.messagesCollectionView.reloadDataAndKeepOffset()
             self.messagesCollectionView.scrollToLastItem()
         }
+    }
+    
+    func didCreateConversation() {
+        self.isNewConversation = false
     }
 }
