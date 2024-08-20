@@ -165,7 +165,7 @@ extension DatabaseManager {
                     conversations.append(recipientNewConversationData)
                     self.database.child("\(otherUserEmail)/conversations").setValue(conversations)
                 }else {
-                    self.database.child("\(otherUserEmail)/conversations").setValue(recipientNewConversationData)
+                    self.database.child("\(otherUserEmail)/conversations").setValue([recipientNewConversationData])
                 }
             }
             
