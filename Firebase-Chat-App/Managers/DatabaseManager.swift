@@ -97,7 +97,8 @@ final class DatabaseManager: DatabaseManagerDelegate {
 extension DatabaseManager {
     /// Creates a new conversation with target user email and first message sent
     func createNewConversation(with otherUserEmail: String, name: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
-        guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String else { return }
+        guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String,
+              let currentName = UserDefaults.standard.value(forKey: "name") as? String else { return }
         let safeEmail = DatabaseManager.safeEmail(email: currentEmail)
         database.child("\(safeEmail)").observeSingleEvent(of: .value) { [weak self] snapShot in
             guard let self = self else { return }
@@ -148,7 +149,7 @@ extension DatabaseManager {
             let recipientNewConversationData = [
                 "id": conversationId,
                 "other_user_email": safeEmail,
-                "name": "Self",
+                "name": currentName,
                 "latest_message": [
                     "date": dateString,
                     "message": message,
