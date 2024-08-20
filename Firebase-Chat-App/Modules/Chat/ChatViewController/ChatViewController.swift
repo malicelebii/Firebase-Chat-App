@@ -50,13 +50,14 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         guard !text.replacingOccurrences(of: " ", with: "").isEmpty, let selfSender = chatViewModel.selfSender, let messageId = chatViewModel.createMessageId() else { return }
         
         print("Sending \(text)")
+        let message = Message(sender: selfSender, messageId: messageId, sentDate: Date(), kind: .text(text))
         // Send Message
         if isNewConversation {
-            let message = Message(sender: selfSender, messageId: messageId, sentDate: Date(), kind: .text(text))
             chatViewModel.createNewConversation(with: otherUserEmail, firstMessage: message, name: self.title)
         }else {
             guard let conversationId = conversationId, let name = self.title else { return }
-        }        
+            chatViewModel.sendMessage(to: conversationId, otherUserEmail: otherUserEmail, name: name, message: message)
+        }
     }
 }
 

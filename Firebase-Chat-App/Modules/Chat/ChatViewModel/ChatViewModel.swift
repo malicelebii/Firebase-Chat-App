@@ -9,6 +9,7 @@ import Foundation
 
 protocol ChatViewModelDelegate {
     func createMessageId() -> String?
+    func sendMessage(to conversation: String, otherUserEmail: String, name: String, message: Message)
     func createNewConversation(with otherUserEmail: String, firstMessage: Message, name: String?)
     func getAllMessagesForConversation(with id: String)
 }
@@ -41,6 +42,17 @@ final class ChatViewModel: ChatViewModelDelegate {
         let newIdentifier = "\(otherUserEmail)_\(DatabaseManager.safeEmail(email: currentEmail))_\(dateString))"
         print("create message id : \(newIdentifier)")
         return newIdentifier
+    }
+    
+    func sendMessage(to conversation: String, otherUserEmail: String, name: String ,message: Message) {
+        databaseManager.sendMessage(to: conversation, otherUserEmail: otherUserEmail, name: name, message: message) { result in
+            if result {
+                print("message sent")
+            }
+            else {
+                print("failedd to send message")
+            }
+        }
     }
     
     func createNewConversation(with otherUserEmail: String, firstMessage: Message, name: String?) {
