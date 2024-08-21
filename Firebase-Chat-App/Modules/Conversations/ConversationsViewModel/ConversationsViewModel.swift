@@ -23,11 +23,23 @@ final class ConversationsViewModel: ConversationsViewModelDelegate {
     
     func createNewConversation(result: [String: String]) {
         guard let name = result["name"], let email = result["email"] else { return }
-        let chatVC = ChatViewController(otherUserEmail: email, id: nil)
-        chatVC.isNewConversation = true
-        chatVC.title = name
-        chatVC.navigationItem.largeTitleDisplayMode = .never
-        view?.didCreateNewConversation(chatVC: chatVC)
+        let currentConversations = self.conversations
+        if let targetConversation = currentConversations.first(where:  {
+            $0.othetUserEmail == DatabaseManager.safeEmail(email: email)
+        }) {
+            let chatVC = ChatViewController(otherUserEmail: targetConversation.othetUserEmail, id: targetConversation.id)
+            chatVC.isNewConversation = false
+            chatVC.title = targetConversation.name
+            chatVC.navigationItem.largeTitleDisplayMode = .never
+            view?.didCreateNewConversation(chatVC: chatVC)
+        }else {
+            let chatVC = ChatViewController(otherUserEmail: email, id: nil)
+            chatVC.isNewConversation = true
+            chatVC.title = name
+            chatVC.navigationItem.largeTitleDisplayMode = .never
+            view?.didCreateNewConversation(chatVC: chatVC)
+        }
+        
     }
     
     func getAllConversations() {
