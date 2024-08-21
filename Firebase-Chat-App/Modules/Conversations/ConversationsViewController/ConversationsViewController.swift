@@ -111,6 +111,28 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            let alertController = UIAlertController(title: "Delete Conversation", message: "Are you sure to delete this conversation ?", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: {[weak self] action in
+                guard let self = self else { return }
+                let conversationId = conversationsViewModel.conversations[indexPath.row].id
+                conversationsViewModel.deleteConversation(conversationId: conversationId)
+                self.conversationsViewModel.conversations.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .left)
+            }))
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            present(alertController, animated: true)
+        default:
+            break
+        }
+    }
 }
 
 extension ConversationsViewController: ConversationsViewDelegate {
