@@ -14,6 +14,7 @@ protocol StorageManagerDelegate {
     func uploadProfilePicture(with data: Data, fileName: String, completion: @escaping (Result<String, Error>) -> Void)
     func downloadURL(for path: String, completion: @escaping (Result<URL, Error>) -> Void)
     func uploadMessagePhoto(with data: Data, fileName: String, completion: @escaping UploadPictureCompletion)
+    func uploadMessageVideo(with fileUrl: URL, fileName: String, completion: @escaping UploadPictureCompletion)
 }
 
 final class StorageManager: StorageManagerDelegate {
@@ -58,6 +59,31 @@ final class StorageManager: StorageManagerDelegate {
             }
          
             self.storage.child("message_images/\(fileName)").downloadURL { url, error in
+                guard let url = url else {
+                    print("Failed to get download url")
+                    completion(.failure(StorageError.failedToGetDownloadUrl))
+                    return
+                }
+                
+                let urlString = url.absoluteString
+                print("Donwload url: \(urlString)")
+                completion(.success(urlString))
+            }
+        }
+    }
+    
+    func uploadMessageVideo(with fileUrl: URL, fileName: String, completion: @escaping UploadPictureCompletion) {
+        print("fileName: \(fileName)")
+        self.storage.child("message_videos/\(fileName)").putFile(from: fileUrl, metadata: nil) {[weak self] metaData, error in
+            guard let self = self else { return }
+            guard error == nil else {
+                print("Failed to upload video file to firabase for picture")
+                print(error)
+                completion(.failure(StorageError.failedToUpload))
+                return
+            }
+         
+            self.storage.child("message_videos/\(fileName)").downloadURL { url, error in
                 guard let url = url else {
                     print("Failed to get download url")
                     completion(.failure(StorageError.failedToGetDownloadUrl))
