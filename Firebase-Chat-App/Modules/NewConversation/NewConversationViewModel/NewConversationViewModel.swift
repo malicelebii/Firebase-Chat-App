@@ -37,9 +37,9 @@ final class NewConversationViewModel: NewConversationViewModelDelegate {
     }
     
     func filteredUsers(with term: String) -> [[String: String]] {
+        let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String
         let results: [[String: String]] = self.users.filter {
-            guard let name = $0["name"]?.lowercased() else {
-            
+            guard let name = $0["name"]?.lowercased(), let userEmail = $0["email"], let email = currentUserEmail, userEmail != DatabaseManager.safeEmail(email: email) else {
                 return false
             }
             return name.hasPrefix(term.lowercased())
