@@ -9,6 +9,7 @@ import UIKit
 import MessageKit
 import InputBarAccessoryView
 import SDWebImage
+import AVKit
 
 protocol ChatViewDelegate: AnyObject {
     func didCreateConversation()
@@ -188,6 +189,11 @@ extension ChatViewController: MessageCellDelegate {
             guard let imageUrl = media.url else { return }
             let vc = PhotoViewerViewController(with: imageUrl)
             self.navigationController?.pushViewController(vc, animated: true)
+        case .video(let media):
+            guard let videoUrl = media.url else { return }
+            let vc = AVPlayerViewController()
+            vc.player = AVPlayer(url: videoUrl)
+            present(vc, animated: true)
         default:
             break
         }
