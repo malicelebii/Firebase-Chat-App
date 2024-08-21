@@ -66,8 +66,9 @@ class ChatViewController: MessagesViewController  {
             guard let self = self else { return }
             self.presentPhotoInputActionSheet()
         }))
-        actionSheet.addAction(UIAlertAction(title: "Video", style: .default, handler: { action in
-            
+        actionSheet.addAction(UIAlertAction(title: "Video", style: .default, handler: {[weak self] action in
+            guard let self = self else { return }
+            self.presentVideoInputActionSheet()
         }))
         actionSheet.addAction(UIAlertAction(title: "Audio", style: .default, handler: { action in
             
@@ -96,6 +97,33 @@ class ChatViewController: MessagesViewController  {
              picker.delegate = self
              picker.allowsEditing = true
              self.present(picker, animated: true)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            
+        }))
+        
+        present(actionSheet, animated: true)
+    }
+    
+    func presentVideoInputActionSheet() {
+        let actionSheet = UIAlertController(title: "Attach Video", message: "Where would you like to attach from?", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: {[weak self] action in
+            guard let self = self else { return }
+            let picker = UIImagePickerController()
+            picker.sourceType = .camera
+            picker.delegate = self
+            picker.allowsEditing = true
+            self.present(picker, animated: true)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Video Library", style: .default, handler: { [weak self] action in
+            guard let self = self else { return }
+            let picker = UIImagePickerController()
+            picker.sourceType = .photoLibrary
+            picker.delegate = self
+            picker.mediaTypes = ["public.movie"]
+            picker.videoQuality = .typeMedium
+            picker.allowsEditing = true
+            self.present(picker, animated: true)
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
             
