@@ -8,6 +8,7 @@
 import UIKit
 import MessageKit
 import InputBarAccessoryView
+import SDWebImage
 
 protocol ChatViewDelegate: AnyObject {
     func didCreateConversation()
@@ -132,7 +133,20 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
     
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
         return chatViewModel.messages.count
-    }    
+    }
+    
+    func configureMediaMessageImageView(_ imageView: UIImageView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        guard let message = message as? Message else { return }
+        
+        switch message.kind {
+        case .photo(let media):
+            guard let imageUrl = media.url else { return }
+            imageView.sd_setImage(with: imageUrl)
+        default:
+            break
+        }
+    }
+}
 }
 
 extension ChatViewController: ChatViewDelegate {
