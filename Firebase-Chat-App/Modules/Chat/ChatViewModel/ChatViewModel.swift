@@ -13,6 +13,7 @@ protocol ChatViewModelDelegate {
     func createNewConversation(with otherUserEmail: String, firstMessage: Message, name: String?)
     func getAllMessagesForConversation(with id: String)
     func uploadMessagePhoto(with data: Data, name: String)
+    func uploadMessageVideo(with fileUrl: URL, name: String)
 }
 
 final class ChatViewModel: ChatViewModelDelegate {
@@ -100,6 +101,26 @@ final class ChatViewModel: ChatViewModelDelegate {
                 print("Uploaded message photo: \(urlString)")
             case .failure(let error):
                 print("Message Photo Upload Error")
+            }
+        }
+    }
+    
+    func uploadMessageVideo(with fileUrl: URL, name: String) {
+        guard let messageId = createMessageId(), let sender = selfSender else { return }
+        let fileName = "video_message_" + messageId.replacingOccurrences(of: " ", with: "-") + ".mov"
+        
+        
+        storageManager.uploadMessageVideo(with: fileUrl, fileName: fileName) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let urlString):
+                guard let url = URL(string: urlString), let placeholder = UIImage(systemName: "plus"), let conversationId = self.view?.conversationId, let otherUserEmail = self.view?.otherUserEmail else { return }
+                let media = Media(url: url , image: nil, placeholderImage: placeholder, size: .zero)
+                let message = Message(sender: sender, messageId: messageId, sentDate: Date(), kind: .video(media))
+                sendMessage(to: conversationId , otherUserEmail: otherUserEmail , name: name , message: message)
+                print("Uploaded message video: \(urlString)")
+            case .failure(let error):
+                print("Message Video Upload Error")
             }
         }
     }
