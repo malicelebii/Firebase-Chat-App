@@ -10,6 +10,7 @@ import Foundation
 protocol ConversationsViewModelDelegate {
     func createNewConversation(result: [String: String])
     func getAllConversations()
+    func deleteConversation(conversationId: String)
 }
 
 final class ConversationsViewModel: ConversationsViewModelDelegate {
@@ -42,6 +43,16 @@ final class ConversationsViewModel: ConversationsViewModelDelegate {
                 self.view?.didFetchConversations()
             case .failure(let error):
                 print("failed to get conversations")
+            }
+        })
+    }
+    
+    func deleteConversation(conversationId: String) {
+        databaseManager?.deleteConversation(conversationId: conversationId, completion: { success in
+            if success {
+                print("silinde")
+            }else {
+                print("silmede hata")
             }
         })
     }
