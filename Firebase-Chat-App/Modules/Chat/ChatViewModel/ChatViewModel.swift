@@ -16,6 +16,7 @@ protocol ChatViewModelDelegate {
 
 final class ChatViewModel: ChatViewModelDelegate {
     let databaseManager: DatabaseManagerDelegate
+    let storageManager: StorageManagerDelegate
     weak var view: ChatViewDelegate?
     var messages = [Message]()
     static let dateFormatter: DateFormatter = {
@@ -32,8 +33,9 @@ final class ChatViewModel: ChatViewModelDelegate {
         return Sender(photoURL: "", senderId: safeEmail, displayName: "Me")
     }()
   
-    init(databaseManager: DatabaseManagerDelegate = DatabaseManager.shared) {
+    init(databaseManager: DatabaseManagerDelegate = DatabaseManager.shared, storageManager: StorageManagerDelegate = StorageManager.shared) {
         self.databaseManager = databaseManager
+        self.storageManager = storageManager
     }
     
     func createMessageId() -> String? {
