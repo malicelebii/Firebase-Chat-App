@@ -19,6 +19,7 @@ protocol DatabaseManagerDelegate {
     func sendMessage(to conversation: String, otherUserEmail: String, name:String, message: Message, completion: @escaping (Bool) -> Void)
     func finishCreatingConversation(name: String, conversationID: String, firstMessage: Message, completion: @escaping (Bool) -> Void)
     func getDataFor(path: String, completion: @escaping (Result<Any, Error>) -> Void)
+    func deleteConversation(conversationId: String, completion: @escaping (Bool) -> Void)
 }
 
 final class DatabaseManager: DatabaseManagerDelegate {
@@ -427,6 +428,29 @@ extension DatabaseManager {
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+    
+    func deleteConversation(conversationId: String, completion: @escaping (Bool) -> Void) {
+        guard let email = UserDefaults.standard.value(forKey: "email") as? String else { return }
+        let safeEmail = DatabaseManager.safeEmail(email: email)
+        database.child("\(safeEmail)/conversations").observeSingleEvent(of: .value) {[weak self] snapShot in
+            guard let self = self else { return }
+            if var conversations = snapShot.value as? [[String: Any]] {
+                var positionToRemove = 0
+                for conversation in conversations {
+                    if let id = conversation["id"] as? String, id == conversationId {
+                        break
+                    }
+                    positionToRemove += 1
+                }
+                conversations.remove(at: positionToRemove)
+                self.database.child("\(safeEmail)/conversations").setValue(conversations) { error, _ in
+                    guard error == nil else { completion(false); print("Failed to write new conversation array"); return }
+                    print("deleted conversation")
+                    completion(true)
                 }
             }
         }
