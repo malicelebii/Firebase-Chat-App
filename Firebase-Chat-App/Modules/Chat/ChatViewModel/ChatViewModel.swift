@@ -5,13 +5,14 @@
 //  Created by Mehmet Ali ÇELEBİ on 14.08.2024.
 //
 
-import Foundation
+import UIKit
 
 protocol ChatViewModelDelegate {
     func createMessageId() -> String?
     func sendMessage(to conversation: String, otherUserEmail: String, name: String, message: Message)
     func createNewConversation(with otherUserEmail: String, firstMessage: Message, name: String?)
     func getAllMessagesForConversation(with id: String)
+    func uploadMessagePhoto(with data: Data, name: String)
 }
 
 final class ChatViewModel: ChatViewModelDelegate {
@@ -79,6 +80,26 @@ final class ChatViewModel: ChatViewModelDelegate {
                 self.view?.didFetchMessages()
             case .failure(let error):
                 print(error)
+            }
+        }
+    }
+    
+    func uploadMessagePhoto(with data: Data, name: String) {
+        guard let messageId = createMessageId(), let sender = selfSender else { return }
+        let fileName = "photo_message_" + messageId.replacingOccurrences(of: " ", with: "-") + ".png"
+        
+        
+        storageManager.uploadMessagePhoto(with: data, fileName: fileName) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let urlString):
+                guard let url = URL(string: urlString), let placeholder = UIImage(systemName: "plus"), let conversationId = self.view?.conversationId, let otherUserEmail = self.view?.otherUserEmail else { return }
+                let media = Media(url: url , image: nil, placeholderImage: placeholder, size: .zero)
+                let message = Message(sender: sender, messageId: messageId, sentDate: Date(), kind: .photo(media))
+                sendMessage(to: conversationId , otherUserEmail: otherUserEmail , name: name , message: message)
+                print("Uploaded message photo: \(urlString)")
+            case .failure(let error):
+                print("Message Photo Upload Error")
             }
         }
     }
