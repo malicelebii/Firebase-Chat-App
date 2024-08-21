@@ -14,6 +14,7 @@ protocol ChatViewDelegate: AnyObject {
     func didCreateConversation()
     func didFetchMessages()
     var otherUserEmail: String { get}
+    var conversationId: String? { get }
 }
 
 class ChatViewController: MessagesViewController  {
@@ -160,5 +161,21 @@ extension ChatViewController: ChatViewDelegate {
     
     func didCreateConversation() {
         self.isNewConversation = false
+    }
+}
+
+
+extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage, let imageData = image.pngData(), let name = self.title else { return }
+        
+        // Upload image
+        chatViewModel.uploadMessagePhoto(with: imageData, name: name)
+        // Send message
     }
 }
