@@ -13,6 +13,8 @@ PODS:
   - FBSDKCoreKit_Basics (17.0.3)
   - FBSDKLoginKit (17.0.3):
     - FBSDKCoreKit (= 17.0.3)
+  - FBSDKShareKit (17.0.3):
+    - FBSDKCoreKit (= 17.0.3)
   - FirebaseAppCheckInterop (11.0.0)
   - FirebaseAuth (11.0.0):
     - FirebaseAppCheckInterop (~> 11.0)
@@ -99,6 +101,7 @@ PODS:
 DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
+  - FBSDKShareKit
   - FirebaseAuth
   - FirebaseCore
   - FirebaseDatabase
@@ -117,6 +120,7 @@ SPEC REPOS:
     - FBSDKCoreKit
     - FBSDKCoreKit_Basics
     - FBSDKLoginKit
+    - FBSDKShareKit
     - FirebaseAppCheckInterop
     - FirebaseAuth
     - FirebaseAuthInterop
@@ -146,6 +150,7 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 0791f8f68a8630931a4c12aa23a56cc021551596
   FBSDKCoreKit_Basics: 46d6b472c0dd0a5a7e972c025033d1c567f54eb4
   FBSDKLoginKit: b4a4eba1d62eb452544411824f41689adabd5bd2
+  FBSDKShareKit: eb1169eafe3c06f881dc6deed2d7979585b16959
   FirebaseAppCheckInterop: 6f63b3cf004e8bfd8f577e2221a95b4f0b6dc4c5
   FirebaseAuth: d5cf28be74d7e82257f6a3f717509eff70d3cf4a
   FirebaseAuthInterop: 45548371ea75fa7ba6c18c93cc6102bf43fb8152
@@ -169,6 +174,6 @@ SPEC CHECKSUMS:
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   SDWebImage: a79252b60f4678812d94316c91da69ec83089c9f
 
-PODFILE CHECKSUM: d10323eb7dcd8285d647f93e3fcade3f1643a270
+PODFILE CHECKSUM: 9895ab4191aa48bdc513c1c921553916c1f1e69f
 
 COCOAPODS: 1.15.2
