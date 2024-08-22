@@ -86,7 +86,8 @@ class ChatViewController: MessagesViewController  {
     }
     
     func presentLocationPicker() {
-        let vc = LocationPickerViewController()
+        let vc = LocationPickerViewController(coordinates: nil)
+        vc.title = "Pick Location"
         vc.navigationItem.largeTitleDisplayMode = .never
         vc.completion = { [weak self] selectedCoordinates in
             guard let self = self else {
@@ -199,6 +200,21 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
 }
 
 extension ChatViewController: MessageCellDelegate {
+    func didTapMessage(in cell: MessageCollectionViewCell) {
+        guard let indexPath = messagesCollectionView.indexPath(for: cell) else { return }
+        let message = chatViewModel.messages[indexPath.section]
+        
+        switch message.kind {
+        case .location(let location):
+            let coordinates = location.location.coordinate
+            let vc = LocationPickerViewController(coordinates: coordinates)
+            vc.title = "Location"
+            self.navigationController?.pushViewController(vc, animated: true)
+        default:
+            break
+        }
+    }
+    
     func didTapImage(in cell: MessageCollectionViewCell) {
         guard let indexPath = messagesCollectionView.indexPath(for: cell) else { return }
         let message = chatViewModel.messages[indexPath.section]
