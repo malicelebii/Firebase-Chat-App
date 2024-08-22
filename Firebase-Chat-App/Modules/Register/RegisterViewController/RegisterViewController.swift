@@ -42,7 +42,7 @@ class RegisterViewController: UIViewController {
         textField.placeholder = "First Name..."
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         textField.leftViewMode = .always
-        textField.backgroundColor = .white
+        textField.backgroundColor = .secondarySystemBackground
         textField.isSecureTextEntry = true
         return textField
     }()
@@ -58,7 +58,7 @@ class RegisterViewController: UIViewController {
         textField.placeholder = "Last Name..."
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         textField.leftViewMode = .always
-        textField.backgroundColor = .white
+        textField.backgroundColor = .secondarySystemBackground
         textField.isSecureTextEntry = true
         return textField
     }()
@@ -74,7 +74,7 @@ class RegisterViewController: UIViewController {
         textField.placeholder = "Email adress..."
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         textField.leftViewMode = .always
-        textField.backgroundColor = .white
+        textField.backgroundColor = .secondarySystemBackground
         return textField
     }()
     
@@ -89,7 +89,7 @@ class RegisterViewController: UIViewController {
         textField.placeholder = "Password..."
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         textField.leftViewMode = .always
-        textField.backgroundColor = .white
+        textField.backgroundColor = .secondarySystemBackground
         textField.isSecureTextEntry = true
         return textField
     }()
@@ -109,7 +109,7 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerViewModel.view = self
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         setupDelegates()
         addSubViews()
         registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
