@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseDatabase
 import MessageKit
+import CoreLocation
 
 protocol DatabaseManagerDelegate {
     func userExist(with email: String, completion: @escaping ((Bool) -> Void))
@@ -300,6 +301,14 @@ extension DatabaseManager {
                     guard let videoUrl = URL(string: content), let placeholder = UIImage(systemName: "plus") else { return nil}
                     let media = Media(url: videoUrl, image: nil, placeholderImage: placeholder, size: CGSize(width: 300, height: 300))
                     kind = .video(media)
+                } else if type == "location" {
+                    let locationComponents = content.components(separatedBy: ",")
+                    print(locationComponents)
+                    
+                    guard let lat = Double(locationComponents[0]),
+                          let long = Double(locationComponents[1]) else { return nil }
+                    let location = Location(location: CLLocation(latitude: lat, longitude: long), size: CGSize(width: 300, height: 300))
+                    kind = .location(location)
                 }
                 else {
                     kind = .text(content)
@@ -344,7 +353,7 @@ extension DatabaseManager {
                 break
             case .location(let locationData):
                 let location = locationData.location
-                messageContent = "\(location.coordinate.latitude), \(location.coordinate.longitude)"
+                messageContent = "\(location.coordinate.latitude),\(location.coordinate.longitude)"
                 break
             case .emoji(_):
                 break
