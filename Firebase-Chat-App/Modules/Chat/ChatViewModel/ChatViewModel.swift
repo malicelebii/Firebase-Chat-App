@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 protocol ChatViewModelDelegate {
     func createMessageId() -> String?
@@ -14,6 +15,7 @@ protocol ChatViewModelDelegate {
     func getAllMessagesForConversation(with id: String)
     func uploadMessagePhoto(with data: Data, name: String)
     func uploadMessageVideo(with fileUrl: URL, name: String)
+    func uploadMessageLocation(latitude: Double, longitude: Double, name: String)
 }
 
 final class ChatViewModel: ChatViewModelDelegate {
@@ -123,5 +125,32 @@ final class ChatViewModel: ChatViewModelDelegate {
                 print("Message Video Upload Error")
             }
         }
+    }
+    
+    func uploadMessageLocation(latitude: Double, longitude: Double, name: String) {
+        guard let messageId = createMessageId(),
+              let conversationId = self.view?.conversationId,
+              let otherUserEmail = self.view?.otherUserEmail,
+            let selfSender = self.selfSender else {
+                return
+        }
+        print("lat= \(latitude) | long=\(longitude)")
+
+        let location = Location(location: CLLocation(latitude: latitude, longitude: longitude),
+                             size: .zero)
+
+        let message = Message(sender: selfSender,
+                              messageId: messageId,
+                              sentDate: Date(),
+                              kind: .location(location))
+
+        databaseManager.sendMessage(to: conversationId, otherUserEmail: otherUserEmail, name: name, message: message, completion: { success in
+            if success {
+                print("sent location message")
+            }
+            else {
+                print("failed to send location message")
+            }
+        })
     }
 }
