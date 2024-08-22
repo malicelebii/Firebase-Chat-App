@@ -6,10 +6,10 @@
 //
 
 import UIKit
+import SDWebImage
 
 protocol ProfileViewModelDelegate {
     func setProfilePicture(for path: String, imageView: UIImageView)
-    func downloadImage(imageView: UIImageView, url: URL)
 }
 
 final class ProfileViewModel: ProfileViewModelDelegate {
@@ -22,28 +22,15 @@ final class ProfileViewModel: ProfileViewModelDelegate {
 
 extension ProfileViewModel {
     func setProfilePicture(for path: String, imageView: UIImageView) {
-        storageManager.downloadURL(for: path) { [weak self] result in
-            guard let self = self else { return }
-            guard let url = URL(string: path) else { return }
-            
+        storageManager.downloadURL(for: path) { result in
             switch result {
             case .success(let url):
-                self.downloadImage(imageView: imageView, url: url)
+                DispatchQueue.main.async {
+                    imageView.sd_setImage(with: url)
+                }
             case .failure(let error):
                 print(error)
             }
         }
-    }
-    
-    func downloadImage(imageView: UIImageView, url: URL) {
-        URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
-            guard let data = data, error == nil else { return }
-            
-            DispatchQueue.main.async {
-                let image = UIImage(data: data)
-                imageView.image = image
-            }
-            
-        }.resume()
     }
 }
