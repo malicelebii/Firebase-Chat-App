@@ -12,7 +12,7 @@ import GoogleSignIn
 
 class ProfileViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
-    let data = ["Log out"]
+    var data = [ProfileView]()
     let profileViewModel = ProfileViewModel()
     
     override func viewDidLoad() {
@@ -21,6 +21,7 @@ class ProfileViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableHeaderView = createTableHeader()
+        setProfileViewData()
     }
     
     func createTableHeader() -> UIView? {
@@ -28,7 +29,7 @@ class ProfileViewController: UIViewController {
         let safeEmail = DatabaseManager.safeEmail(email: email)
         let fileName = safeEmail + "_profile_picture.png"
         let path = "images/" + fileName
-        var headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 300))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 300))
         headerView.backgroundColor = .link
         let imageView = UIImageView(frame: CGRect(x: (view.width - 150) / 2, y: 75, width: 150, height: 150))
         headerView.addSubview(imageView)
@@ -40,20 +41,8 @@ class ProfileViewController: UIViewController {
         profileViewModel.setProfilePicture(for: path, imageView: imageView)
         return headerView
     }
-}
-
-extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
-    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = data[indexPath.row]
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func showLogOutAlert() {
         let alertController = UIAlertController(title: "Log out", message: "Are you sure to log out ?", preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Log out", style: .destructive, handler: { _ in
             LoginManager().logOut()
@@ -70,5 +59,35 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(alertController, animated: true)
+    }
+    
+    func setProfileViewData() {
+        data.append(ProfileView(viewType: .info, title: "Name: \(UserDefaults.standard.string(forKey: "name") ?? "No name")", handler: nil))
+        data.append(ProfileView(viewType: .info, title: "Email: \(UserDefaults.standard.string(forKey: "email") ?? "No email")", handler: nil))
+        data.append(ProfileView(viewType: .logout, title: "Logout", handler: { [weak self] in
+            self?.showLogOutAlert()
+        }))
+    }
+}
+
+extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = data[indexPath.row].title
+        cell.selectionStyle = .none
+        if data[indexPath.row].viewType == .logout {
+            cell.textLabel?.textAlignment = .center
+            cell.textLabel?.textColor = .red
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        data[indexPath.row].handler?()
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
