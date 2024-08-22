@@ -73,12 +73,31 @@ class ChatViewController: MessagesViewController  {
         }))
         actionSheet.addAction(UIAlertAction(title: "Audio", style: .default, handler: { action in
             
+        }))  
+        actionSheet.addAction(UIAlertAction(title: "Location", style: .default, handler: {[weak self] action in
+            guard let self = self else { return }
+            self.presentLocationPicker()
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
             
         }))
         
         present(actionSheet, animated: true)
+    }
+    
+    func presentLocationPicker() {
+        let vc = LocationPickerViewController()
+        vc.navigationItem.largeTitleDisplayMode = .never
+        vc.completion = { [weak self] selectedCoordinates in
+            guard let self = self else {
+                         return
+                     }
+            guard let name = self.title else { return }
+            let longitude: Double = selectedCoordinates.longitude
+            let latitude: Double = selectedCoordinates.latitude
+            self.chatViewModel.uploadMessageLocation(latitude: latitude, longitude: longitude, name: name)
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func presentPhotoInputActionSheet() {
