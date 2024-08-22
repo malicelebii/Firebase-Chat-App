@@ -17,14 +17,31 @@ class LocationPickerViewController: UIViewController {
     
     var completion: ((CLLocationCoordinate2D) -> Void)?
     var coordinates: CLLocationCoordinate2D?
+    var isPickable = true
+
+    init(coordinates: CLLocationCoordinate2D?) {
+        self.coordinates = coordinates
+        isPickable = coordinates == nil
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Pick Location"
+        if isPickable {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .done, target: self, action: #selector(sendButtonTapped))
+            addGestureToMap()
+        }else {
+            guard let coordinates = coordinates else { return }
+            let pin = MKPointAnnotation()
+            pin.coordinate = coordinates
+            map.addAnnotation(pin)
+        }
         view.backgroundColor = .systemBackground
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .done, target: self, action: #selector(sendButtonTapped))
         addSubviews()
-        addGestureToMap()
     }
     
     func addSubviews() {
