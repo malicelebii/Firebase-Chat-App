@@ -77,7 +77,7 @@ final class StorageManager: StorageManagerDelegate {
         self.storage.child("message_videos/\(fileName)").putFile(from: fileUrl, metadata: nil) {[weak self] metaData, error in
             guard let self = self else { return }
             guard error == nil else {
-                print("Failed to upload video file to firabase for picture")
+                print("Failed to upload video file to firabase")
                 print(error)
                 completion(.failure(StorageError.failedToUpload))
                 return

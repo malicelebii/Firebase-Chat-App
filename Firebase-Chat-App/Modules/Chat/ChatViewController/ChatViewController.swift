@@ -222,11 +222,12 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
-        guard let name = self.title, let url = info[.mediaURL] as? URL else { return }
+        guard let name = self.title else { return }
         if let image = info[.editedImage] as? UIImage, let imageData = image.pngData() {
             // Upload image
             chatViewModel.uploadMessagePhoto(with: imageData, name: name)
         }else {
+            guard let url = info[.mediaURL] as? URL else { return }
             chatViewModel.uploadMessageVideo(with: url, name: name)
         }
     }
