@@ -23,6 +23,8 @@ class ChatViewController: MessagesViewController  {
     var otherUserEmail: String
     var conversationId: String?
     var isNewConversation = false
+    var senderPhotoUrl: URL?
+    var otherUserPhotoUrl: URL?
     
     init(otherUserEmail: String, id: String?) {
         self.conversationId = id
@@ -195,6 +197,28 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
             imageView.sd_setImage(with: imageUrl)
         default:
             break
+        }
+    }
+    
+    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        let sender = message.sender
+        if sender.senderId == chatViewModel.selfSender?.senderId {
+            if let currentUserImage = self.senderPhotoUrl {
+                DispatchQueue.main.async {
+                    avatarView.sd_setImage(with: currentUserImage)
+                }
+            }else {
+                guard let email = UserDefaults.standard.value(forKey: "email") as? String else { return }
+                chatViewModel.setAvatarImage(email: email, avatarView: avatarView)
+            }
+        }else {
+            if let otherUserPhotoUrl = self.otherUserPhotoUrl {
+                DispatchQueue.main.async {
+                    avatarView.sd_setImage(with: otherUserPhotoUrl)
+                }
+            }else {
+                chatViewModel.setAvatarImage(email: otherUserEmail, avatarView: avatarView)
+            }
         }
     }
 }
