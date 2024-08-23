@@ -62,7 +62,8 @@ final class LoginViewModel: LoginViewModelDelegate {
             UserDefaults.standard.setValue(email, forKey: "email")
             UserDefaults.standard.setValue("\(firstName) \(lastName)", forKey: "name")
             
-            self.databaseManager.userExist(with: email) { exist in
+            self.databaseManager.userExist(with: email) { [weak self] exist in
+                guard let self = self else { return }
                 if !exist {
                     let chatUser = ChatAppUser(firstName: firstName, lastName: lastName, email: email)
                     self.databaseManager.insertUser(with: chatUser ) { success in
@@ -100,7 +101,8 @@ final class LoginViewModel: LoginViewModelDelegate {
     }
     
     func loginWithGoogle(withRepresenting: UIViewController) {
-        GIDSignIn.sharedInstance.signIn(withPresenting: withRepresenting) { [unowned self] result, error in
+        GIDSignIn.sharedInstance.signIn(withPresenting: withRepresenting) { [weak self] result, error in
+            guard let self = self else { return }
             guard let user = result?.user,
                let idToken = user.idToken?.tokenString
              else {

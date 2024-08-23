@@ -60,7 +60,7 @@ class ConversationsTableViewCell: UITableViewCell {
         let path = "images/\(model.othetUserEmail)_profile_picture.png"
         StorageManager.shared.downloadURL(for: path) {[weak self] result in
             guard let self = self else { return }
-            switch result {
+            switch result {
             case .success(let url):
                 DispatchQueue.main.async {
                     self.userImageView.sd_setImage(with: url, completed: nil)

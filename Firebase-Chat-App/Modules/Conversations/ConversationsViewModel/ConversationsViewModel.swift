@@ -24,7 +24,7 @@ final class ConversationsViewModel: ConversationsViewModelDelegate {
     
     func createNewConversation(result: [String: String]) {
         guard let name = result["name"], let email = result["email"] else { return }
-        let currentConversations = self.conversations
+        let currentConversations = conversations
         if let targetConversation = currentConversations.first(where:  {
             $0.othetUserEmail == DatabaseManager.safeEmail(email: email)
         }) {

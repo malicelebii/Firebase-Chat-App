@@ -29,20 +29,15 @@ final class RegisterViewModel: RegisterViewModelDelegate {
     func register(withEmail: String, password: String, firstName: String, lastName: String, image: UIImage?, view: UIView) {
         spinner.show(in: view)
         Auth.auth().createUser(withEmail: withEmail, password: password) { [weak self] authResult, error in
-            print("Self: \(self)")
-            
             guard let self = self else { return }
-            
             guard authResult != nil, error == nil else {
                 return
             }
-            
             let chatUser = ChatAppUser(firstName: firstName, lastName: lastName, email: withEmail)
             self.databaseManager.insertUser(with: chatUser) { success in
                 print("success: \(success)")
                 if success {
                     //upload image
-                    print("image: \(image)")
                     guard let image = image, let data = image.pngData() else {
                         return
                     }
@@ -59,7 +54,6 @@ final class RegisterViewModel: RegisterViewModelDelegate {
                         }
                     }
                 }
-                
             }
         }
     }

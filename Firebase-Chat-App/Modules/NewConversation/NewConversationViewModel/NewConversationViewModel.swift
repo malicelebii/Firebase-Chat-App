@@ -28,7 +28,6 @@ final class NewConversationViewModel: NewConversationViewModelDelegate {
             case .success(let users):
                 self.users = users
                 self.users = filteredUsers(with: query)
-                print(self.users)
                 self.view?.didSearchUser()
             case .failure(let error):
                 print(error)
@@ -38,7 +37,7 @@ final class NewConversationViewModel: NewConversationViewModelDelegate {
     
     func filteredUsers(with term: String) -> [[String: String]] {
         let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String
-        let results: [[String: String]] = self.users.filter {
+        let results: [[String: String]] = users.filter {
             guard let name = $0["name"]?.lowercased(), let userEmail = $0["email"], let email = currentUserEmail, userEmail != DatabaseManager.safeEmail(email: email) else {
                 return false
             }

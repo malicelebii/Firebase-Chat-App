@@ -226,7 +226,7 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
         guard let image: UIImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
-        self.profilePictureImageView.image = image
+        profilePictureImageView.image = image
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -236,6 +236,6 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
 
 extension RegisterViewController: RegisterViewDelegate {
     func didTapRegister() {
-        self.navigationController?.dismiss(animated: true)
+        navigationController?.dismiss(animated: true)
     }
 }

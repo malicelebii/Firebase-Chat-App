@@ -24,7 +24,8 @@ final class StorageManager: StorageManagerDelegate {
     func uploadProfilePicture(with data: Data, fileName: String, completion: @escaping UploadPictureCompletion) {
         print("data : \(data)")
         print("fileName: \(fileName)")
-        self.storage.child("images/\(fileName)").putData(data, metadata: nil) { metaData, error in
+        storage.child("images/\(fileName)").putData(data, metadata: nil) { [weak self] metaData, error in
+            guard let self = self else { return }
             guard error == nil else {
                 print("Failed to upload data to firabase for picture")
                 print(error)

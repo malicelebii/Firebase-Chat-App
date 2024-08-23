@@ -29,7 +29,7 @@ class ProfileViewController: UIViewController {
         let safeEmail = DatabaseManager.safeEmail(email: email)
         let fileName = safeEmail + "_profile_picture.png"
         let path = "images/" + fileName
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 300))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.width, height: 300))
         headerView.backgroundColor = .link
         let imageView = UIImageView(frame: CGRect(x: (view.width - 150) / 2, y: 75, width: 150, height: 150))
         headerView.addSubview(imageView)

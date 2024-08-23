@@ -49,7 +49,8 @@ final class DatabaseManager: DatabaseManagerDelegate {
         database.child(user.safeEmail).setValue([
             "first_name": user.firstName,
             "last_name": user.lastName
-        ]) { error, _ in
+        ]) { [weak self] error, _ in
+            guard let self = self else { return }
             guard error == nil else {
                 completion(false)
                 return

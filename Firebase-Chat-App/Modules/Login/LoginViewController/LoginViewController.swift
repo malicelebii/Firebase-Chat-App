@@ -98,7 +98,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc func signInWithGoogle() {
-        self.spinner.show(in: view)
+        spinner.show(in: view)
         loginViewModel.loginWithGoogle(withRepresenting: self)
     }
     
@@ -136,7 +136,7 @@ class LoginViewController: UIViewController {
             alertUserLoginError()
             return
         }
-        self.spinner.show(in: view)
+        spinner.show(in: view)
         loginViewModel.login(withEmail: email, password: password)
     }
     
@@ -185,7 +185,7 @@ extension LoginViewController: LoginButtonDelegate {
 
 extension LoginViewController: LoginViewDelegate {
     func didLogin() {
-        self.spinner.dismiss()
-        self.navigationController?.dismiss(animated: true)
+        spinner.dismiss()
+        navigationController?.dismiss(animated: true)
     }
 }
