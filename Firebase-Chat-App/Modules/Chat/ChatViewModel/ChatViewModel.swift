@@ -69,6 +69,8 @@ final class ChatViewModel: ChatViewModelDelegate {
                 print("message sent")
                 print(firstMessage)
                 self.view?.didCreateConversation()
+                let newConversationId = "conversation_\(firstMessage.messageId)"
+                getAllMessagesForConversation(with: newConversationId)
             }else {
                 print("failed to send message")
             }
