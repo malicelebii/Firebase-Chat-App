@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import SDWebImage
 
 protocol ChatViewModelDelegate {
     func createMessageId() -> String?
@@ -152,5 +153,20 @@ final class ChatViewModel: ChatViewModelDelegate {
                 print("failed to send location message")
             }
         })
+    }
+    
+    func setAvatarImage(email: String, avatarView: UIImageView) {
+        let safeEmail = DatabaseManager.safeEmail(email: email)
+        let path = "images/\(safeEmail)_profile_picture.png"
+        storageManager.downloadURL(for: path) { result in
+            switch result {
+            case .success(let url):
+                DispatchQueue.main.async {
+                    avatarView.sd_setImage(with: url)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
