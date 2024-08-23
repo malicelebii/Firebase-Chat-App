@@ -43,7 +43,6 @@ class RegisterViewController: UIViewController {
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         textField.leftViewMode = .always
         textField.backgroundColor = .secondarySystemBackground
-        textField.isSecureTextEntry = true
         return textField
     }()
    
@@ -59,7 +58,6 @@ class RegisterViewController: UIViewController {
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         textField.leftViewMode = .always
         textField.backgroundColor = .secondarySystemBackground
-        textField.isSecureTextEntry = true
         return textField
     }()
     
