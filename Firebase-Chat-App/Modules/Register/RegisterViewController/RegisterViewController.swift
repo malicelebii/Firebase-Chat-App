@@ -160,7 +160,7 @@ class RegisterViewController: UIViewController {
         
         DatabaseManager.shared.userExist(with: email) { [weak self] exist in
             guard let self = self else { return }
-            guard !exist else {
+            guard exist == false else {
                 alertUserLoginError(message: "Email was already taken")
                 return
             }
