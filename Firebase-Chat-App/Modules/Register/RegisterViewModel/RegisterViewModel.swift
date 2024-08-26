@@ -33,6 +33,8 @@ final class RegisterViewModel: RegisterViewModelDelegate {
             guard authResult != nil, error == nil else {
                 return
             }
+            UserDefaults.standard.set(withEmail, forKey: "email")
+            UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
             let chatUser = ChatAppUser(firstName: firstName, lastName: lastName, email: withEmail)
             self.databaseManager.insertUser(with: chatUser) { success in
                 print("success: \(success)")

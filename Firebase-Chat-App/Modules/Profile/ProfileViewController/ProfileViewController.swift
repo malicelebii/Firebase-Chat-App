@@ -47,6 +47,8 @@ class ProfileViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "Log out", style: .destructive, handler: { _ in
             LoginManager().logOut()
             GIDSignIn.sharedInstance.signOut()
+            UserDefaults.standard.set(nil, forKey: "email")
+            UserDefaults.standard.set(nil, forKey: "name")
             do {
                 try FirebaseAuth.Auth.auth().signOut()
                 let loginVC = LoginViewController()
