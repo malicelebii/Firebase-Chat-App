@@ -34,10 +34,9 @@ final class DatabaseManager: DatabaseManagerDelegate {
     }
     
     func userExist(with email: String, completion: @escaping ((Bool) -> Void)) {
-        var safeEmail = email.replacingOccurrences(of: ".", with: "-")
-        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
+        let safeEmail = DatabaseManager.safeEmail(email: email)
         database.child(safeEmail).observeSingleEvent(of: .value) { snapshot in
-            guard snapshot.value  != nil else {
+            guard snapshot.value == nil else {
                 completion(false)
                 return
             }
