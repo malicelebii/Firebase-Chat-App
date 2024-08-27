@@ -103,7 +103,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         let email = conversationsViewModel.conversations[indexPath.row].othetUserEmail
         let conversationId = conversationsViewModel.conversations[indexPath.row].id
         let chatVC = ChatViewController(otherUserEmail: email, id: conversationId)
-        chatVC.title = "Mehmet Çelebi"
+        chatVC.title = conversationsViewModel.conversations[indexPath.row].name
         chatVC.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(chatVC, animated: true)
     }
