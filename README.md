@@ -2,7 +2,6 @@
   
 # Real Time Chat App
 
-<h1>What is this project ?</h1>
 <b>#</b> This project is an Real-time chat application by using Firebase 
 <br></br>
 
