@@ -22,7 +22,6 @@
 		35BD7C042C5A0A9200BE767F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD7C032C5A0A9200BE767F /* LoginViewController.swift */; };
 		35BD7C092C5A0ABD00BE767F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD7C082C5A0ABD00BE767F /* RegisterViewController.swift */; };
 		35BD7C0D2C5A0AE000BE767F /* PhotoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD7C0C2C5A0AE000BE767F /* PhotoViewerViewController.swift */; };
-		35BD7C112C5A0AFE00BE767F /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD7C102C5A0AFE00BE767F /* VideoPlayerViewController.swift */; };
 		35BD7C152C5A0B6C00BE767F /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD7C142C5A0B6C00BE767F /* NewConversationViewController.swift */; };
 		35BD7C192C5A0B8600BE767F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD7C182C5A0B8600BE767F /* ProfileViewController.swift */; };
 		35BD7C1B2C5A121800BE767F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD7C1A2C5A121800BE767F /* Extensions.swift */; };
@@ -68,7 +67,6 @@
 		35BD7C032C5A0A9200BE767F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		35BD7C082C5A0ABD00BE767F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		35BD7C0C2C5A0AE000BE767F /* PhotoViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerViewController.swift; sourceTree = "<group>"; };
-		35BD7C102C5A0AFE00BE767F /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		35BD7C142C5A0B6C00BE767F /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		35BD7C182C5A0B8600BE767F /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		35BD7C1A2C5A121800BE767F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -209,7 +207,6 @@
 				35F439092C6B8AEF00366159 /* Chat */,
 				35BD7C162C5A0B7600BE767F /* Profile */,
 				35BD7C122C5A0B1000BE767F /* NewConversation */,
-				35BD7C0E2C5A0AE400BE767F /* VideoPlayer */,
 				35BD7C0A2C5A0AC200BE767F /* PhotoViewer */,
 				35BD7C062C5A0AA700BE767F /* Register */,
 				35BD7C012C5A0A7F00BE767F /* Login */,
@@ -293,22 +290,6 @@
 				35BD7C0C2C5A0AE000BE767F /* PhotoViewerViewController.swift */,
 			);
 			path = PhotoViewerViewController;
-			sourceTree = "<group>";
-		};
-		35BD7C0E2C5A0AE400BE767F /* VideoPlayer */ = {
-			isa = PBXGroup;
-			children = (
-				35BD7C0F2C5A0AEE00BE767F /* VideoPlayerViewController */,
-			);
-			path = VideoPlayer;
-			sourceTree = "<group>";
-		};
-		35BD7C0F2C5A0AEE00BE767F /* VideoPlayerViewController */ = {
-			isa = PBXGroup;
-			children = (
-				35BD7C102C5A0AFE00BE767F /* VideoPlayerViewController.swift */,
-			);
-			path = VideoPlayerViewController;
 			sourceTree = "<group>";
 		};
 		35BD7C122C5A0B1000BE767F /* NewConversation */ = {
@@ -605,7 +586,6 @@
 				35F438E92C60A7B400366159 /* LoginViewModel.swift in Sources */,
 				35F495BA2C6DED5F0003A972 /* ProfileViewModel.swift in Sources */,
 				35BD7BEC2C5A05B300BE767F /* ConversationsViewController.swift in Sources */,
-				35BD7C112C5A0AFE00BE767F /* VideoPlayerViewController.swift in Sources */,
 				35C6EF702C74A34000735D2A /* Media.swift in Sources */,
 				35A45C6B2C772D10009F6239 /* ProfileView.swift in Sources */,
 				35F439082C6B8A0A00366159 /* ConversationsViewModel.swift in Sources */,
