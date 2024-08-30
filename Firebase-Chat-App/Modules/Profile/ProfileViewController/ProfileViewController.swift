@@ -10,9 +10,12 @@ import FirebaseAuth
 import FBSDKLoginKit
 import GoogleSignIn
 
+protocol ProfileViewControllerDelegate: AnyObject {
+    func showLogOutAlert()
+}
+
 class ProfileViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
-    var data = [ProfileView]()
     let profileViewModel = ProfileViewModel()
     
     override func viewDidLoad() {
@@ -21,7 +24,7 @@ class ProfileViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableHeaderView = createTableHeader()
-        setProfileViewData()
+        profileViewModel.view = self
     }
     
     func createTableHeader() -> UIView? {
@@ -41,7 +44,31 @@ class ProfileViewController: UIViewController {
         profileViewModel.setProfilePicture(for: path, imageView: imageView)
         return headerView
     }
+}
+
+extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return profileViewModel.data.count
+    }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = profileViewModel.data[indexPath.row].title
+        cell.selectionStyle = .none
+        if profileViewModel.data[indexPath.row].viewType == .logout {
+            cell.textLabel?.textAlignment = .center
+            cell.textLabel?.textColor = .red
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        profileViewModel.data[indexPath.row].handler?()
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension ProfileViewController: ProfileViewControllerDelegate {
     func showLogOutAlert() {
         let alertController = UIAlertController(title: "Log out", message: "Are you sure to log out ?", preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Log out", style: .destructive, handler: { _ in
@@ -62,34 +89,5 @@ class ProfileViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(alertController, animated: true)
     }
-    
-    func setProfileViewData() {
-        data.append(ProfileView(viewType: .info, title: "Name: \(UserDefaults.standard.string(forKey: "name") ?? "No name")", handler: nil))
-        data.append(ProfileView(viewType: .info, title: "Email: \(UserDefaults.standard.string(forKey: "email") ?? "No email")", handler: nil))
-        data.append(ProfileView(viewType: .logout, title: "Logout", handler: { [weak self] in
-            self?.showLogOutAlert()
-        }))
-    }
-}
 
-extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = data[indexPath.row].title
-        cell.selectionStyle = .none
-        if data[indexPath.row].viewType == .logout {
-            cell.textLabel?.textAlignment = .center
-            cell.textLabel?.textColor = .red
-        }
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        data[indexPath.row].handler?()
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
 }

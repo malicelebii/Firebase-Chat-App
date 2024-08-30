@@ -15,10 +15,13 @@ protocol ProfileViewModelDelegate {
 
 final class ProfileViewModel: ProfileViewModelDelegate {
     let storageManager: StorageManagerDelegate
+    weak var view: ProfileViewControllerDelegate?
     let spinner = JGProgressHUD()
+    var data = [ProfileView]()
     
     init(storageManager: StorageManagerDelegate = StorageManager.shared) {
         self.storageManager = storageManager
+        setProfileViewData()
     }
 }
 
@@ -37,5 +40,13 @@ extension ProfileViewModel {
                 print(error)
             }
         }
+    }
+    
+    func setProfileViewData() {
+        data.append(ProfileView(viewType: .info, title: "Name: \(UserDefaults.standard.string(forKey: "name") ?? "No name")", handler: nil))
+        data.append(ProfileView(viewType: .info, title: "Email: \(UserDefaults.standard.string(forKey: "email") ?? "No email")", handler: nil))
+        data.append(ProfileView(viewType: .logout, title: "Logout", handler: { [weak self] in
+            self?.view?.showLogOutAlert()
+        }))
     }
 }
